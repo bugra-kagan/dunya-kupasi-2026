@@ -621,7 +621,7 @@ function showFlash() {
 // ============================================================
 // LIVE SCORE FETCH — football-data.org (WC = FIFA World Cup)
 // ============================================================
-const API_KEY = 'BURAYA_KEY_YAPISTIR';
+const API_KEY = '2678dbb14fe64d27950b6cab46526c28';
 
 const TEAM_MAP = {
   'mexico': 'meksi', 'poland': 'polon', 'argentina': 'arjan',
@@ -656,7 +656,7 @@ async function fetchLiveScores() {
   const badge = document.getElementById('live-badge');
   const todayMatches = MATCHES.filter(m => isToday(m.date));
 
-  if (API_KEY === 'BURAYA_KEY_YAPISTIR') {
+  if (API_KEY === '2678dbb14fe64d27950b6cab46526c28') {
     badge.style.display = todayMatches.length > 0 ? 'block' : 'none';
     return;
   }
