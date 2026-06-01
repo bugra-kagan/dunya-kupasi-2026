@@ -78,8 +78,8 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 .match-team{display:flex;flex-direction:column;gap:4px;}
 .match-team.home{align-items:flex-start;}
 .match-team.away{align-items:flex-end;}
-.team-flag{font-size:24px;line-height:1;}
-.team-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.2;}
+.team-flag img{width:32px;height:24px;object-fit:contain;border-radius:4px;}
+.team-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.2;margin-top:2px;}
 .team-bet{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;margin-top:2px;}
 .bet-bugra{background:rgba(26,140,78,0.18);color:#5adb8c;}
 .bet-tamer{background:rgba(200,32,42,0.18);color:#ff8a8a;}
@@ -102,7 +102,8 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 
 /* ADMIN PANEL */
 .admin-match-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;margin-left:16px;margin-right:16px;}
-.admin-match-name{font-size:11px;font-weight:600;margin-bottom:8px;color:var(--muted);}
+.admin-match-name{font-size:11px;font-weight:600;margin-bottom:8px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.admin-match-name img{width:18px;height:14px;object-fit:contain;border-radius:2px;}
 .admin-score-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:8px;}
 .score-input{background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:6px;text-align:center;font-family:'Bebas Neue',cursive;font-size:20px;color:var(--text);width:100%;}
 .score-input:focus{outline:none;border-color:var(--gold);}
@@ -206,90 +207,95 @@ let scores = JSON.parse(localStorage.getItem('wc2026_scores') || '{}');
 let activeGroup = 'all';
 let activeTab = 'today';
 
+// Güvenli Twemoji Bayrak URL üreteci
+function getFlagUrl(code) {
+  return `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/${code}.png`;
+}
+
 const MATCHES = [
-  {id:'A1',group:'A',home:'Meksika',homeFlag:'🇲🇽',away:'Güney Afrika',awayFlag:'🇿🇦',date:'2026-06-11',time:'22:00',venue:'Mexico City'},
-  {id:'A2',group:'A',home:'Güney Kore',homeFlag:'🇰🇷',away:'Çekya',awayFlag:'🇨🇿',date:'2026-06-12',time:'19:00',venue:'Kansas City'},
-  {id:'A3',group:'A',home:'Meksika',homeFlag:'🇲🇽',away:'Güney Kore',awayFlag:'🇰🇷',date:'2026-06-15',time:'22:00',venue:'Mexico City'},
-  {id:'A4',group:'A',home:'Güney Afrika',homeFlag:'🇿🇦',away:'Çekya',awayFlag:'🇨🇿',date:'2026-06-15',time:'19:00',venue:'Guadalajara'},
-  {id:'A5',group:'A',home:'Meksika',homeFlag:'🇲🇽',away:'Çekya',awayFlag:'🇨🇿',date:'2026-06-19',time:'22:00',venue:'Guadalajara'},
-  {id:'A6',group:'A',home:'Güney Afrika',homeFlag:'🇿🇦',away:'Güney Kore',awayFlag:'🇰🇷',date:'2026-06-19',time:'22:00',venue:'Kansas City'},
+  {id:'A1',group:'A',home:'Meksika',homeFlag:getFlagUrl('1f3b0'),away:'Güney Afrika',awayFlag:getFlagUrl('1f1f1-1f1fa'),date:'2026-06-11',time:'22:00',venue:'Mexico City'},
+  {id:'A2',group:'A',home:'Güney Kore',homeFlag:getFlagUrl('1f1f0-1f1f7'),away:'Çekya',awayFlag:getFlagUrl('1f1e4-1f1ff'),date:'2026-06-12',time:'19:00',venue:'Kansas City'},
+  {id:'A3',group:'A',home:'Meksika',homeFlag:getFlagUrl('1f3b0'),away:'Güney Kore',awayFlag:getFlagUrl('1f1f0-1f1f7'),date:'2026-06-15',time:'22:00',venue:'Mexico City'},
+  {id:'A4',group:'A',home:'Güney Afrika',homeFlag:getFlagUrl('1f1f1-1f1fa'),away:'Çekya',awayFlag:getFlagUrl('1f1e4-1f1ff'),date:'2026-06-15',time:'19:00',venue:'Guadalajara'},
+  {id:'A5',group:'A',home:'Meksika',homeFlag:getFlagUrl('1f3b0'),away:'Çekya',awayFlag:getFlagUrl('1f1e4-1f1ff'),date:'2026-06-19',time:'22:00',venue:'Guadalajara'},
+  {id:'A6',group:'A',home:'Güney Afrika',homeFlag:getFlagUrl('1f1f1-1f1fa'),away:'Güney Kore',awayFlag:getFlagUrl('1f1f0-1f1f7'),date:'2026-06-19',time:'22:00',venue:'Kansas City'},
   
-  {id:'B1',group:'B',home:'Kanada',homeFlag:'🇨🇦',away:'İsviçre',awayFlag:'🇨🇭',date:'2026-06-12',time:'22:00',venue:'Toronto'},
-  {id:'B2',group:'B',home:'Katar',homeFlag:'🇶🇦',away:'Bosna Hersek',awayFlag:'🇧🇦',date:'2026-06-13',time:'16:00',venue:'Seattle'},
-  {id:'B3',group:'B',home:'Kanada',homeFlag:'🇨🇦',away:'Katar',awayFlag:'🇶🇦',date:'2026-06-17',time:'19:00',venue:'Vancouver'},
-  {id:'B4',group:'B',home:'İsviçre',homeFlag:'🇨🇭',away:'Bosna Hersek',awayFlag:'🇧🇦',date:'2026-06-17',time:'22:00',venue:'Seattle'},
-  {id:'B5',group:'B',home:'Kanada',homeFlag:'🇨🇦',away:'Bosna Hersek',awayFlag:'🇧🇦',date:'2026-06-21',time:'22:00',venue:'Toronto'},
-  {id:'B6',group:'B',home:'İsviçre',homeFlag:'🇨🇭',away:'Katar',awayFlag:'🇶🇦',date:'2026-06-21',time:'22:00',venue:'Vancouver'},
+  {id:'B1',group:'B',home:'Kanada',homeFlag:getFlagUrl('1f1e8-1f1e6'),away:'İsviçre',awayFlag:getFlagUrl('1f1e8-1f1ded'),date:'2026-06-12',time:'22:00',venue:'Toronto'},
+  {id:'B2',group:'B',home:'Katar',homeFlag:getFlagUrl('1f1f1-1f1e6'),away:'Bosna Hersek',awayFlag:getFlagUrl('1f1e7-1f1e6'),date:'2026-06-13',time:'16:00',venue:'Seattle'},
+  {id:'B3',group:'B',home:'Kanada',homeFlag:getFlagUrl('1f1e8-1f1e6'),away:'Katar',awayFlag:getFlagUrl('1f1f1-1f1e6'),date:'2026-06-17',time:'19:00',venue:'Vancouver'},
+  {id:'B4',group:'B',home:'İsviçre',homeFlag:getFlagUrl('1f1e8-1f1ded'),away:'Bosna Hersek',awayFlag:getFlagUrl('1f1e7-1f1e6'),date:'2026-06-17',time:'22:00',venue:'Seattle'},
+  {id:'B5',group:'B',home:'Kanada',homeFlag:getFlagUrl('1f1e8-1f1e6'),away:'Bosna Hersek',awayFlag:getFlagUrl('1f1e7-1f1e6'),date:'2026-06-21',time:'22:00',venue:'Toronto'},
+  {id:'B6',group:'B',home:'İsviçre',homeFlag:getFlagUrl('1f1e8-1f1ded'),away:'Katar',awayFlag:getFlagUrl('1f1f1-1f1e6'),date:'2026-06-21',time:'22:00',venue:'Vancouver'},
   
-  {id:'C1',group:'C',home:'Brezilya',homeFlag:'🇧🇷',away:'Fas',awayFlag:'🇲🇦',date:'2026-06-13',time:'22:00',venue:'Los Angeles'},
-  {id:'C2',group:'C',home:'İskoçya',homeFlag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',away:'Haiti',awayFlag:'🇭🇹',date:'2026-06-13',time:'19:00',venue:'New York'},
-  {id:'C3',group:'C',home:'Brezilya',homeFlag:'🇧🇷',away:'İskoçya',awayFlag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',date:'2026-06-17',time:'22:00',venue:'Los Angeles'},
-  {id:'C4',group:'C',home:'Fas',homeFlag:'🇲🇦',away:'Haiti',awayFlag:'🇭🇹',date:'2026-06-17',time:'19:00',venue:'San Francisco'},
-  {id:'C5',group:'C',home:'Brezilya',homeFlag:'🇧🇷',away:'Haiti',awayFlag:'🇭🇹',date:'2026-06-21',time:'22:00',venue:'San Francisco'},
-  {id:'C6',group:'C',home:'Fas',homeFlag:'🇲🇦',away:'İskoçya',awayFlag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',date:'2026-06-21',time:'22:00',venue:'New York'},
+  {id:'C1',group:'C',home:'Brezilya',homeFlag:getFlagUrl('1f1e7-1f1f7'),away:'Fas',awayFlag:getFlagUrl('1f1f2-1f1e6'),date:'2026-06-13',time:'22:00',venue:'Los Angeles'},
+  {id:'C2',group:'C',home:'İskoçya',homeFlag:getFlagUrl('1f1ec-1f1e7'),away:'Haiti',awayFlag:getFlagUrl('1f1ed-1f1f9'),date:'2026-06-13',time:'19:00',venue:'New York'},
+  {id:'C3',group:'C',home:'Brezilya',homeFlag:getFlagUrl('1f1e7-1f1f7'),away:'İskoçya',awayFlag:getFlagUrl('1f1ec-1f1e7'),date:'2026-06-17',time:'22:00',venue:'Los Angeles'},
+  {id:'C4',group:'C',home:'Fas',homeFlag:getFlagUrl('1f1f2-1f1e6'),away:'Haiti',awayFlag:getFlagUrl('1f1ed-1f1f9'),date:'2026-06-17',time:'19:00',venue:'San Francisco'},
+  {id:'C5',group:'C',home:'Brezilya',homeFlag:getFlagUrl('1f1e7-1f1f7'),away:'Haiti',awayFlag:getFlagUrl('1f1ed-1f1f9'),date:'2026-06-21',time:'22:00',venue:'San Francisco'},
+  {id:'C6',group:'C',home:'Fas',homeFlag:getFlagUrl('1f1f2-1f1e6'),away:'İskoçya',awayFlag:getFlagUrl('1f1ec-1f1e7'),date:'2026-06-21',time:'22:00',venue:'New York'},
   
-  {id:'D1',group:'D',home:'ABD',homeFlag:'🇺🇸',away:'Avustralya',awayFlag:'🇦🇺',date:'2026-06-14',time:'16:00',venue:'Kansas City'},
-  {id:'D2',group:'D',home:'Paraguay',homeFlag:'🇵🇾',away:'Türkiye',awayFlag:'🇹🇷',date:'2026-06-14',time:'22:00',venue:'Dallas'},
-  {id:'D3',group:'D',home:'ABD',homeFlag:'🇺🇸',away:'Paraguay',awayFlag:'🇵🇾',date:'2026-06-18',time:'22:00',venue:'Los Angeles'},
-  {id:'D4',group:'D',home:'Avustralya',homeFlag:'🇦🇺',away:'Türkiye',awayFlag:'🇹🇷',date:'2026-06-18',time:'19:00',venue:'Dallas'},
-  {id:'D5',group:'D',home:'ABD',homeFlag:'🇺🇸',away:'Türkiye',awayFlag:'🇹🇷',date:'2026-06-22',time:'22:00',venue:'Kansas City'},
-  {id:'D6',group:'D',home:'Avustralya',homeFlag:'🇦🇺',away:'Paraguay',awayFlag:'🇵🇾',date:'2026-06-22',time:'22:00',venue:'Los Angeles'},
+  {id:'D1',group:'D',home:'ABD',homeFlag:getFlagUrl('1f1fa-1f1f8'),away:'Avustralya',awayFlag:getFlagUrl('1f1e6-1f1fa'),date:'2026-06-14',time:'16:00',venue:'Kansas City'},
+  {id:'D2',group:'D',home:'Paraguay',homeFlag:getFlagUrl('1f1f5-1f1fe'),away:'Türkiye',awayFlag:getFlagUrl('1f1f9-1f1f7'),date:'2026-06-14',time:'22:00',venue:'Dallas'},
+  {id:'D3',group:'D',home:'ABD',homeFlag:getFlagUrl('1f1fa-1f1f8'),away:'Paraguay',awayFlag:getFlagUrl('1f1f5-1f1fe'),date:'2026-06-18',time:'22:00',venue:'Los Angeles'},
+  {id:'D4',group:'D',home:'Avustralya',homeFlag:getFlagUrl('1f1e6-1f1fa'),away:'Türkiye',awayFlag:getFlagUrl('1f1f9-1f1f7'),date:'2026-06-18',time:'19:00',venue:'Dallas'},
+  {id:'D5',group:'D',home:'ABD',homeFlag:getFlagUrl('1f1fa-1f1f8'),away:'Türkiye',awayFlag:getFlagUrl('1f1f9-1f1f7'),date:'2026-06-22',time:'22:00',venue:'Kansas City'},
+  {id:'D6',group:'D',home:'Avustralya',homeFlag:getFlagUrl('1f1e6-1f1fa'),away:'Paraguay',awayFlag:getFlagUrl('1f1f5-1f1fe'),date:'2026-06-22',time:'22:00',venue:'Los Angeles'},
   
-  {id:'E1',group:'E',home:'Almanya',homeFlag:'🇩🇪',away:'Ekvador',awayFlag:'🇪🇨',date:'2026-06-14',time:'19:00',venue:'Atlanta'},
-  {id:'E2',group:'E',home:'Fildişi Sahili',homeFlag:'🇨🇮',away:'Kürasao',awayFlag:'🇨🇼',date:'2026-06-14',time:'22:00',venue:'Miami'},
-  {id:'E3',group:'E',home:'Almanya',homeFlag:'🇩🇪',away:'Fildişi Sahili',awayFlag:'🇨🇮',date:'2026-06-18',time:'16:00',venue:'Atlanta'},
-  {id:'E4',group:'E',home:'Ekvador',homeFlag:'🇪🇨',away:'Kürasao',awayFlag:'🇨🇼',date:'2026-06-18',time:'19:00',venue:'Houston'},
-  {id:'E5',group:'E',home:'Almanya',homeFlag:'🇩🇪',away:'Kürasao',awayFlag:'🇨🇼',date:'2026-06-22',time:'22:00',venue:'Miami'},
-  {id:'E6',group:'E',home:'Ekvador',homeFlag:'🇪🇨',away:'Fildişi Sahili',awayFlag:'🇨🇮',date:'2026-06-22',time:'22:00',venue:'Atlanta'},
+  {id:'E1',group:'E',home:'Almanya',homeFlag:getFlagUrl('1f1e9-1f1ea'),away:'Ekvador',awayFlag:getFlagUrl('1f1ec-1f1ea'),date:'2026-06-14',time:'19:00',venue:'Atlanta'},
+  {id:'E2',group:'E',home:'Fildişi Sahili',homeFlag:getFlagUrl('1f1e4-1f1ee'),away:'Kürasao',awayFlag:getFlagUrl('1f1e8-1f1fc'),date:'2026-06-14',time:'22:00',venue:'Miami'},
+  {id:'E3',group:'E',home:'Almanya',homeFlag:getFlagUrl('1f1e9-1f1ea'),away:'Fildişi Sahili',awayFlag:getFlagUrl('1f1e4-1f1ee'),date:'2026-06-18',time:'16:00',venue:'Atlanta'},
+  {id:'E4',group:'E',home:'Ekvador',homeFlag:getFlagUrl('1f1ec-1f1ea'),away:'Kürasao',awayFlag:getFlagUrl('1f1e8-1f1fc'),date:'2026-06-18',time:'19:00',venue:'Houston'},
+  {id:'E5',group:'E',home:'Almanya',homeFlag:getFlagUrl('1f1e9-1f1ea'),away:'Kürasao',awayFlag:getFlagUrl('1f1e8-1f1fc'),date:'2026-06-22',time:'22:00',venue:'Miami'},
+  {id:'E6',group:'E',home:'Ekvador',homeFlag:getFlagUrl('1f1ec-1f1ea'),away:'Fildişi Sahili',awayFlag:getFlagUrl('1f1e4-1f1ee'),date:'2026-06-22',time:'22:00',venue:'Atlanta'},
   
-  {id:'F1',group:'F',home:'Hollanda',homeFlag:'🇳🇱',away:'Japonya',awayFlag:'🇯🇵',date:'2026-06-15',time:'19:00',venue:'New York'},
-  {id:'F2',group:'F',home:'Tunus',homeFlag:'🇹🇳',away:'İsveç',awayFlag:'🇸🇪',date:'2026-06-15',time:'16:00',venue:'Boston'},
-  {id:'F3',group:'F',home:'Hollanda',homeFlag:'🇳🇱',away:'Tunus',awayFlag:'🇹🇳',date:'2026-06-19',time:'19:00',venue:'Philadelphia'},
-  {id:'F4',group:'F',home:'Japonya',homeFlag:'🇯🇵',away:'İsveç',awayFlag:'🇸🇪',date:'2026-06-19',time:'22:00',venue:'New York'},
-  {id:'F5',group:'F',home:'Hollanda',homeFlag:'🇳🇱',away:'İsveç',awayFlag:'🇸🇪',date:'2026-06-23',time:'22:00',venue:'Boston'},
-  {id:'F6',group:'F',home:'Tunus',homeFlag:'🇹🇳',away:'Japonya',awayFlag:'🇯🇵',date:'2026-06-23',time:'22:00',venue:'Philadelphia'},
+  {id:'F1',group:'F',home:'Hollanda',homeFlag:getFlagUrl('1f1f3-1f1f1'),away:'Japonya',awayFlag:getFlagUrl('1f1ef-1f1f5'),date:'2026-06-15',time:'19:00',venue:'New York'},
+  {id:'F2',group:'F',home:'Tunus',homeFlag:getFlagUrl('1f1f9-1f1f3'),away:'İsveç',awayFlag:getFlagUrl('1f1f8-1f1ea'),date:'2026-06-15',time:'16:00',venue:'Boston'},
+  {id:'F3',group:'F',home:'Hollanda',homeFlag:getFlagUrl('1f1f3-1f1f1'),away:'Tunus',awayFlag:getFlagUrl('1f1f9-1f1f3'),date:'2026-06-19',time:'19:00',venue:'Philadelphia'},
+  {id:'F4',group:'F',home:'Japonya',homeFlag:getFlagUrl('1f1ef-1f1f5'),away:'İsveç',awayFlag:getFlagUrl('1f1f8-1f1ea'),date:'2026-06-19',time:'22:00',venue:'New York'},
+  {id:'F5',group:'F',home:'Hollanda',homeFlag:getFlagUrl('1f1f3-1f1f1'),away:'İsveç',awayFlag:getFlagUrl('1f1f8-1f1ea'),date:'2026-06-23',time:'22:00',venue:'Boston'},
+  {id:'F6',group:'F',home:'Tunus',homeFlag:getFlagUrl('1f1f9-1f1f3'),away:'Japonya',awayFlag:getFlagUrl('1f1ef-1f1f5'),date:'2026-06-23',time:'22:00',venue:'Philadelphia'},
   
-  {id:'G1',group:'G',home:'Belçika',homeFlag:'🇧🇪',away:'İran',awayFlag:'🇮🇷',date:'2026-06-15',time:'22:00',venue:'Houston'},
-  {id:'G2',group:'G',home:'Mısır',homeFlag:'🇪🇬',away:'Yeni Zelanda',awayFlag:'🇳🇿',date:'2026-06-15',time:'22:00',venue:'San Francisco'},
-  {id:'G3',group:'G',home:'Belçika',homeFlag:'🇧🇪',away:'Mısır',awayFlag:'🇪🇬',date:'2026-06-19',time:'16:00',venue:'Kansas City'},
-  {id:'G4',group:'G',home:'İran',homeFlag:'🇮🇷',away:'Yeni Zelanda',awayFlag:'🇳🇿',date:'2026-06-19',time:'19:00',venue:'Houston'},
-  {id:'G5',group:'G',home:'Belçika',homeFlag:'🇧🇪',away:'Yeni Zelanda',awayFlag:'🇳🇿',date:'2026-06-23',time:'22:00',venue:'San Francisco'},
-  {id:'G6',group:'G',home:'İran',homeFlag:'🇮🇷',away:'Mısır',awayFlag:'🇪🇬',date:'2026-06-23',time:'22:00',venue:'Houston'},
+  {id:'G1',group:'G',home:'Belçika',homeFlag:getFlagUrl('1f1e7-1f1e8'),away:'İran',awayFlag:getFlagUrl('1f1ee-1f1f7'),date:'2026-06-15',time:'22:00',venue:'Houston'},
+  {id:'G2',group:'G',home:'Mısır',homeFlag:getFlagUrl('1f1ea-1f1ec'),away:'Yeni Zelanda',awayFlag:getFlagUrl('1f1f3-1f1ff'),date:'2026-06-15',time:'22:00',venue:'San Francisco'},
+  {id:'G3',group:'G',home:'Belçika',homeFlag:getFlagUrl('1f1e7-1f1e8'),away:'Mısır',awayFlag:getFlagUrl('1f1ea-1f1ec'),date:'2026-06-19',time:'16:00',venue:'Kansas City'},
+  {id:'G4',group:'G',home:'İran',homeFlag:getFlagUrl('1f1ee-1f1f7'),away:'Yeni Zelanda',awayFlag:getFlagUrl('1f1f3-1f1ff'),date:'2026-06-19',time:'19:00',venue:'Houston'},
+  {id:'G5',group:'G',home:'Belçika',homeFlag:getFlagUrl('1f1e7-1f1e8'),away:'Yeni Zelanda',awayFlag:getFlagUrl('1f1f3-1f1ff'),date:'2026-06-23',time:'22:00',venue:'San Francisco'},
+  {id:'G6',group:'G',home:'İran',homeFlag:getFlagUrl('1f1ee-1f1f7'),away:'Mısır',awayFlag:getFlagUrl('1f1ea-1f1ec'),date:'2026-06-23',time:'22:00',venue:'Houston'},
   
-  {id:'H1',group:'H',home:'İspanya',homeFlag:'🇪🇸',away:'Uruguay',awayFlag:'🇺🇾',date:'2026-06-16',time:'19:00',venue:'Miami'},
-  {id:'H2',group:'H',home:'Suudi Arabistan',homeFlag:'🇸🇦',away:'Yeşil Burun',awayFlag:'🇨🇻',date:'2026-06-16',time:'16:00',venue:'Dallas'},
-  {id:'H3',group:'H',home:'İspanya',homeFlag:'🇪🇸',away:'Suudi Arabistan',awayFlag:'🇸🇦',date:'2026-06-20',time:'22:00',venue:'Atlanta'},
-  {id:'H4',group:'H',home:'Uruguay',homeFlag:'🇺🇾',away:'Yeşil Burun',awayFlag:'🇨🇻',date:'2026-06-20',time:'19:00',venue:'Miami'},
-  {id:'H5',group:'H',home:'İspanya',homeFlag:'🇪🇸',away:'Yeşil Burun',awayFlag:'🇨🇻',date:'2026-06-24',time:'22:00',venue:'Dallas'},
-  {id:'H6',group:'H',home:'Uruguay',homeFlag:'🇺🇾',away:'Suudi Arabistan',awayFlag:'🇸🇦',date:'2026-06-24',time:'22:00',venue:'Atlanta'},
+  {id:'H1',group:'H',home:'İspanya',homeFlag:getFlagUrl('1f1ea-1f1f8'),away:'Uruguay',awayFlag:getFlagUrl('1f1fa-1f1fe'),date:'2026-06-16',time:'19:00',venue:'Miami'},
+  {id:'H2',group:'H',home:'Suudi Arabistan',homeFlag:getFlagUrl('1f1f8-1f1e6'),away:'Yeşil Burun',awayFlag:getFlagUrl('1f1e8-1f1fb'),date:'2026-06-16',time:'16:00',venue:'Dallas'},
+  {id:'H3',group:'H',home:'İspanya',homeFlag:getFlagUrl('1f1ea-1f1f8'),away:'Suudi Arabistan',awayFlag:getFlagUrl('1f1f8-1f1e6'),date:'2026-06-20',time:'22:00',venue:'Atlanta'},
+  {id:'H4',group:'H',home:'Uruguay',homeFlag:getFlagUrl('1f1fa-1f1fe'),away:'Yeşil Burun',awayFlag:getFlagUrl('1f1e8-1f1fb'),date:'2026-06-20',time:'19:00',venue:'Miami'},
+  {id:'H5',group:'H',home:'İspanya',homeFlag:getFlagUrl('1f1ea-1f1f8'),away:'Yeşil Burun',awayFlag:getFlagUrl('1f1e8-1f1fb'),date:'2026-06-24',time:'22:00',venue:'Dallas'},
+  {id:'H6',group:'H',home:'Uruguay',homeFlag:getFlagUrl('1f1fa-1f1fe'),away:'Suudi Arabistan',awayFlag:getFlagUrl('1f1f8-1f1e6'),date:'2026-06-24',time:'22:00',venue:'Atlanta'},
   
-  {id:'I1',group:'I',home:'Fransa',homeFlag:'🇫🇷',away:'Senegal',awayFlag:'🇸🇳',date:'2026-06-16',time:'22:00',venue:'Los Angeles'},
-  {id:'I2',group:'I',home:'Norveç',homeFlag:'🇳🇴',away:'Irak',awayFlag:'🇮🇶',date:'2026-06-16',time:'19:00',venue:'Seattle'},
-  {id:'I3',group:'I',home:'Fransa',homeFlag:'🇫🇷',away:'Norveç',awayFlag:'🇳🇴',date:'2026-06-20',time:'16:00',venue:'San Francisco'},
-  {id:'I4',group:'I',home:'Senegal',homeFlag:'🇸🇳',away:'Irak',awayFlag:'🇮🇶',date:'2026-06-20',time:'19:00',venue:'Los Angeles'},
-  {id:'I5',group:'I',home:'Fransa',homeFlag:'🇫🇷',away:'Irak',awayFlag:'🇮🇶',date:'2026-06-24',time:'22:00',venue:'Seattle'},
-  {id:'I6',group:'I',home:'Senegal',homeFlag:'🇸🇳',away:'Norveç',awayFlag:'🇳🇴',date:'2026-06-24',time:'22:00',venue:'San Francisco'},
+  {id:'I1',group:'I',home:'Fransa',homeFlag:getFlagUrl('1f1eb-1f1f7'),away:'Senegal',awayFlag:getFlagUrl('1f1f8-1f1f3'),date:'2026-06-16',time:'22:00',venue:'Los Angeles'},
+  {id:'I2',group:'I',home:'Norveç',homeFlag:getFlagUrl('1f1f3-1f1f4'),away:'Irak',awayFlag:getFlagUrl('1f1ee-1f1f3'),date:'2026-06-16',time:'19:00',venue:'Seattle'},
+  {id:'I3',group:'I',home:'Fransa',homeFlag:getFlagUrl('1f1eb-1f1f7'),away:'Norveç',awayFlag:getFlagUrl('1f1f3-1f1f4'),date:'2026-06-20',time:'16:00',venue:'San Francisco'},
+  {id:'I4',group:'I',home:'Senegal',homeFlag:getFlagUrl('1f1f8-1f1f3'),away:'Irak',awayFlag:getFlagUrl('1f1ee-1f1f3'),date:'2026-06-20',time:'19:00',venue:'Los Angeles'},
+  {id:'I5',group:'I',home:'Fransa',homeFlag:getFlagUrl('1f1eb-1f1f7'),away:'Irak',awayFlag:getFlagUrl('1f1ee-1f1f3'),date:'2026-06-24',time:'22:00',venue:'Seattle'},
+  {id:'I6',group:'I',home:'Senegal',homeFlag:getFlagUrl('1f1f8-1f1f3'),away:'Norveç',awayFlag:getFlagUrl('1f1f3-1f1f4'),date:'2026-06-24',time:'22:00',venue:'San Francisco'},
   
-  {id:'J1',group:'J',home:'Arjantin',homeFlag:'🇦🇷',away:'Avusturya',awayFlag:'🇦🇹',date:'2026-06-17',time:'16:00',venue:'New York'},
-  {id:'J2',group:'J',home:'Cezayir',homeFlag:'🇩🇿',away:'Ürdün',awayFlag:'🇯🇴',date:'2026-06-17',time:'19:00',venue:'Boston'},
-  {id:'J3',group:'J',home:'Arjantin',homeFlag:'🇦🇷',away:'Cezayir',awayFlag:'🇩🇿',date:'2026-06-21',time:'19:00',venue:'Miami'},
-  {id:'J4',group:'J',home:'Avusturya',homeFlag:'🇦🇹',away:'Ürdün',awayFlag:'🇯🇴',date:'2026-06-21',time:'16:00',venue:'New York'},
-  {id:'J5',group:'J',home:'Arjantin',homeFlag:'🇦🇷',away:'Ürdün',awayFlag:'🇯🇴',date:'2026-06-25',time:'22:00',venue:'Boston'},
-  {id:'J6',group:'J',home:'Avusturya',homeFlag:'🇦🇹',away:'Cezayir',awayFlag:'🇩🇿',date:'2026-06-25',time:'22:00',venue:'Miami'},
+  {id:'J1',group:'J',home:'Arjantin',homeFlag:getFlagUrl('1f1e6-1f1f7'),away:'Avusturya',awayFlag:getFlagUrl('1f1e6-1f1f9'),date:'2026-06-17',time:'16:00',venue:'New York'},
+  {id:'J2',group:'J',home:'Cezayir',homeFlag:getFlagUrl('1f1e9-1f1f3'),away:'Ürdün',awayFlag:getFlagUrl('1f1ef-1f1f4'),date:'2026-06-17',time:'19:00',venue:'Boston'},
+  {id:'J3',group:'J',home:'Arjantin',homeFlag:getFlagUrl('1f1e6-1f1f7'),away:'Cezayir',awayFlag:getFlagUrl('1f1e9-1f1f3'),date:'2026-06-21',time:'19:00',venue:'Miami'},
+  {id:'J4',group:'J',home:'Avusturya',homeFlag:getFlagUrl('1f1e6-1f1f9'),away:'Ürdün',awayFlag:getFlagUrl('1f1ef-1f1f4'),date:'2026-06-21',time:'16:00',venue:'New York'},
+  {id:'J5',group:'J',home:'Arjantin',homeFlag:getFlagUrl('1f1e6-1f1f7'),away:'Ürdün',awayFlag:getFlagUrl('1f1ef-1f1f4'),date:'2026-06-25',time:'22:00',venue:'Boston'},
+  {id:'J6',group:'J',home:'Avusturya',homeFlag:getFlagUrl('1f1e6-1f1f9'),away:'Cezayir',awayFlag:getFlagUrl('1f1e9-1f1f3'),date:'2026-06-25',time:'22:00',venue:'Miami'},
   
-  {id:'K1',group:'K',home:'Portekiz',homeFlag:'🇵🇹',away:'Kolombiya',awayFlag:'🇨🇴',date:'2026-06-18',time:'22:00',venue:'Houston'},
-  {id:'K2',group:'K',home:'Özbekistan',homeFlag:'🇺🇿',away:'DR Kongo',awayFlag:'🇨🇩',date:'2026-06-18',time:'19:00',venue:'Dallas'},
-  {id:'K3',group:'K',home:'Portekiz',homeFlag:'🇵🇹',away:'Özbekistan',awayFlag:'🇺🇿',date:'2026-06-22',time:'16:00',venue:'Atlanta'},
-  {id:'K4',group:'K',home:'Kolombiya',homeFlag:'🇨🇴',away:'DR Kongo',awayFlag:'🇨🇩',date:'2026-06-22',time:'19:00',venue:'Houston'},
-  {id:'K5',group:'K',home:'Portekiz',homeFlag:'🇵🇹',away:'DR Kongo',awayFlag:'🇨🇩',date:'2026-06-26',time:'22:00',venue:'Dallas'},
-  {id:'K6',group:'K',home:'Kolombiya',homeFlag:'🇨🇴',away:'Özbekistan',awayFlag:'🇺🇿',date:'2026-06-26',time:'22:00',venue:'Atlanta'},
+  {id:'K1',group:'K',home:'Portekiz',homeFlag:getFlagUrl('1f1f5-1f1f9'),away:'Kolombiya',awayFlag:getFlagUrl('1f1e4-1f1f4'),date:'2026-06-18',time:'22:00',venue:'Houston'},
+  {id:'K2',group:'K',home:'Özbekistan',homeFlag:getFlagUrl('1f1fa-1f1ff'),away:'DR Kongo',awayFlag:getFlagUrl('1f1e8-1f1fa'),date:'2026-06-18',time:'19:00',venue:'Dallas'},
+  {id:'K3',group:'K',home:'Portekiz',homeFlag:getFlagUrl('1f1f5-1f1f9'),away:'Özbekistan',awayFlag:getFlagUrl('1f1fa-1f1ff'),date:'2026-06-22',time:'16:00',venue:'Atlanta'},
+  {id:'K4',group:'K',home:'Kolombiya',homeFlag:getFlagUrl('1f1e4-1f1f4'),away:'DR Kongo',awayFlag:getFlagUrl('1f1e8-1f1fa'),date:'2026-06-22',time:'19:00',venue:'Houston'},
+  {id:'K5',group:'K',home:'Portekiz',homeFlag:getFlagUrl('1f1f5-1f1f9'),away:'DR Kongo',awayFlag:getFlagUrl('1f1e8-1f1fa'),date:'2026-06-26',time:'22:00',venue:'Dallas'},
+  {id:'K6',group:'K',home:'Kolombiya',homeFlag:getFlagUrl('1f1e4-1f1f4'),away:'Özbekistan',awayFlag:getFlagUrl('1f1fa-1f1ff'),date:'2026-06-26',time:'22:00',venue:'Atlanta'},
   
-  {id:'L1',group:'L',home:'İngiltere',homeFlag:'🏴&zwj;󠁧&zwj;󠁢&zwj;󠁥&zwj;󠁮&zwj;󠁧&zwj;󠁿',away:'Hırvatistan',awayFlag:'🇭🇷',date:'2026-06-19',time:'22:00',venue:'New York'},
-  {id:'L2',group:'L',home:'Panama',homeFlag:'🇵🇦',away:'Gana',awayFlag:'🇬🇭',date:'2026-06-19',time:'19:00',venue:'Philadelphia'},
-  {id:'L3',group:'L',home:'İngiltere',homeFlag:'🏴&zwj;󠁧&zwj;󠁢&zwj;󠁥&zwj;󠁮&zwj;󠁧&zwj;󠁿',away:'Panama',awayFlag:'🇵🇦',date:'2026-06-23',time:'22:00',venue:'Boston'},
-  {id:'L4',group:'L',home:'Hırvatistan',homeFlag:'🇭🇷',away:'Gana',awayFlag:'🇬🇭',date:'2026-06-23',time:'19:00',venue:'New York'},
-  {id:'L5',group:'L',home:'İngiltere',homeFlag:'🏴&zwj;󠁧&zwj;󠁢&zwj;󠁥&zwj;󠁮&zwj;󠁧&zwj;󠁿',away:'Gana',awayFlag:'🇬🇭',date:'2026-06-27',time:'22:00',venue:'Philadelphia'},
-  {id:'L6',group:'L',home:'Hırvatistan',homeFlag:'🇭🇷',away:'Panama',awayFlag:'🇵🇦',date:'2026-06-27',time:'22:00',venue:'Boston'}
+  {id:'L1',group:'L',home:'İngiltere',homeFlag:getFlagUrl('1f1ec-1f1e7'),away:'Hırvatistan',awayFlag:getFlagUrl('1f1ed-1f1f7'),date:'2026-06-19',time:'22:00',venue:'New York'},
+  {id:'L2',group:'L',home:'Panama',homeFlag:getFlagUrl('1f1f5-1f1e6'),away:'Gana',awayFlag:getFlagUrl('1f1ec-1f1ed'),date:'2026-06-19',time:'19:00',venue:'Philadelphia'},
+  {id:'L3',group:'L',home:'İngiltere',homeFlag:getFlagUrl('1f1ec-1f1e7'),away:'Panama',awayFlag:getFlagUrl('1f1f5-1f1e6'),date:'2026-06-23',time:'22:00',venue:'Boston'},
+  {id:'L4',group:'L',home:'Hırvatistan',homeFlag:getFlagUrl('1f1ed-1f1f7'),away:'Gana',awayFlag:getFlagUrl('1f1ec-1f1ed'),date:'2026-06-23',time:'19:00',venue:'New York'},
+  {id:'L5',group:'L',home:'İngiltere',homeFlag:getFlagUrl('1f1ec-1f1e7'),away:'Gana',awayFlag:getFlagUrl('1f1ec-1f1ed'),date:'2026-06-27',time:'22:00',venue:'Philadelphia'},
+  {id:'L6',group:'L',home:'Hırvatistan',homeFlag:getFlagUrl('1f1ed-1f1f7'),away:'Panama',awayFlag:getFlagUrl('1f1f5-1f1e6'),date:'2026-06-27',time:'22:00',venue:'Boston'}
 ];
 
 function getTodayTR() {
@@ -341,7 +347,6 @@ function renderMatch(m, showDate) {
   const s = scores[m.id];
   const result = getMatchResult(m);
   const hasScore = s && s.home !== '' && s.away !== '';
-  const today = isToday(m.date);
 
   let statusHtml = '';
   let statusClass = '';
@@ -370,13 +375,13 @@ function renderMatch(m, showDate) {
     </div>
     <div class="match-body">
       <div class="match-team home">
-        <div class="team-flag">${m.homeFlag}</div>
+        <div class="team-flag"><img src="${m.homeFlag}" alt=""></div>
         <div class="team-name">${m.home}</div>
         <div class="team-bet bet-bugra">Buğra</div>
       </div>
       <div class="match-score-center">${scoreCenter}</div>
       <div class="match-team away">
-        <div class="team-flag">${m.awayFlag}</div>
+        <div class="team-flag"><img src="${m.awayFlag}" alt=""></div>
         <div class="team-name">${m.away}</div>
         <div class="team-bet bet-tamer">Tamer</div>
       </div>
@@ -392,7 +397,10 @@ function renderAdminMatch(m) {
   const s = scores[m.id] || {home:'',away:''};
   return `
   <div class="admin-match-item" id="admin-${m.id}">
-    <div class="admin-match-name">${m.homeFlag} ${m.home} vs ${m.away} ${m.awayFlag} — ${formatDate(m.date)} (Grup ${m.group})</div>
+    <div class="admin-match-name">
+      <img src="${m.homeFlag}" alt=""> ${m.home} vs ${m.away} <img src="${m.awayFlag}" alt=""> 
+      <span>— ${formatDate(m.date)} (Grup ${m.group})</span>
+    </div>
     <div class="admin-score-row">
       <input class="score-input" type="number" placeholder="0" value="${s.home}" id="h-${m.id}">
       <div class="score-sep">-</div>
