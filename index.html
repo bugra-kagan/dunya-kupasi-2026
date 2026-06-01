@@ -201,7 +201,6 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 <div class="saved-flash" id="saved-flash">✓ Kaydedildi</div>
 
 <script>
-// state tanımlamaları en başta yapılıyor
 let liveScores = {};
 let scores = JSON.parse(localStorage.getItem('wc2026_scores') || '{}');
 let activeGroup = 'all';
@@ -285,11 +284,11 @@ const MATCHES = [
   {id:'K5',group:'K',home:'Portekiz',homeFlag:'🇵🇹',away:'DR Kongo',awayFlag:'🇨🇩',date:'2026-06-26',time:'22:00',venue:'Dallas'},
   {id:'K6',group:'K',home:'Kolombiya',homeFlag:'🇨🇴',away:'Özbekistan',awayFlag:'🇺🇿',date:'2026-06-26',time:'22:00',venue:'Atlanta'},
   
-  {id:'L1',group:'L',home:'İngiltere',homeFlag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',away:'Hırvatistan',awayFlag:'🇭🇷',date:'2026-06-19',time:'22:00',venue:'New York'},
+  {id:'L1',group:'L',home:'İngiltere',homeFlag:'🏴&zwj;󠁧&zwj;󠁢&zwj;󠁥&zwj;󠁮&zwj;󠁧&zwj;󠁿',away:'Hırvatistan',awayFlag:'🇭🇷',date:'2026-06-19',time:'22:00',venue:'New York'},
   {id:'L2',group:'L',home:'Panama',homeFlag:'🇵🇦',away:'Gana',awayFlag:'🇬🇭',date:'2026-06-19',time:'19:00',venue:'Philadelphia'},
-  {id:'L3',group:'L',home:'İngiltere',homeFlag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',away:'Panama',awayFlag:'🇵🇦',date:'2026-06-23',time:'22:00',venue:'Boston'},
+  {id:'L3',group:'L',home:'İngiltere',homeFlag:'🏴&zwj;󠁧&zwj;󠁢&zwj;󠁥&zwj;󠁮&zwj;󠁧&zwj;󠁿',away:'Panama',awayFlag:'🇵🇦',date:'2026-06-23',time:'22:00',venue:'Boston'},
   {id:'L4',group:'L',home:'Hırvatistan',homeFlag:'🇭🇷',away:'Gana',awayFlag:'🇬🇭',date:'2026-06-23',time:'19:00',venue:'New York'},
-  {id:'L5',group:'L',home:'İngiltere',homeFlag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',away:'Gana',awayFlag:'🇬🇭',date:'2026-06-27',time:'22:00',venue:'Philadelphia'},
+  {id:'L5',group:'L',home:'İngiltere',homeFlag:'🏴&zwj;󠁧&zwj;󠁢&zwj;󠁥&zwj;󠁮&zwj;󠁧&zwj;󠁿',away:'Gana',awayFlag:'🇬🇭',date:'2026-06-27',time:'22:00',venue:'Philadelphia'},
   {id:'L6',group:'L',home:'Hırvatistan',homeFlag:'🇭🇷',away:'Panama',awayFlag:'🇵🇦',date:'2026-06-27',time:'22:00',venue:'Boston'}
 ];
 
@@ -315,7 +314,6 @@ function getMatchResult(match) {
 
 function isToday(dateStr) { return dateStr === getTodayTR(); }
 function isPast(dateStr) { return dateStr < getTodayTR(); }
-function isFuture(dateStr) { return dateStr > getTodayTR(); }
 
 function computeScoreboard() {
   let bugra=0, tamer=0, draws=0, played=0;
@@ -343,7 +341,6 @@ function renderMatch(m, showDate) {
   const s = scores[m.id];
   const result = getMatchResult(m);
   const hasScore = s && s.home !== '' && s.away !== '';
-  const past = isPast(m.date);
   const today = isToday(m.date);
 
   let statusHtml = '';
@@ -351,22 +348,12 @@ function renderMatch(m, showDate) {
   if (hasScore) {
     statusHtml = `<span class="match-status status-finished">Bitti</span>`;
     statusClass = result === 'bugra' ? 'bugra-won' : result === 'tamer' ? 'tamer-won' : 'draw-match';
-  } else if (today) {
-    statusHtml = `<span class="match-status status-upcoming">${m.time}</span>`;
   } else {
     statusHtml = `<span class="match-status status-upcoming">${m.time}</span>`;
   }
 
   const timeLabel = showDate ? formatDate(m.date) : m.time;
-  const live = liveScores && liveScores[m.id];
-  let scoreCenter = '';
-  if (live && (live.status === 'IN_PLAY' || live.status === 'PAUSED')) {
-    scoreCenter = `<div class="live-score" style="color:#ff6b6b">${live.home} - ${live.away}</div>`;
-  } else if (hasScore) {
-    scoreCenter = `<div class="live-score">${s.home} - ${s.away}</div>`;
-  } else {
-    scoreCenter = `<div class="vs-text">vs</div>`;
-  }
+  let scoreCenter = hasScore ? `<div class="live-score">${s.home} - ${s.away}</div>` : `<div class="vs-text">vs</div>`;
 
   let resultBadge = '';
   if (result === 'bugra') resultBadge = `<span class="bet-result r-bugra">Buğra Kazandı</span>`;
@@ -529,7 +516,6 @@ function showFlash() {
   setTimeout(() => f.classList.remove('show'), 1500);
 }
 
-// ilk yükleme çalıştırılması
 computeScoreboard();
 renderToday();
 </script>
