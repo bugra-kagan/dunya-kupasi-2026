@@ -265,8 +265,8 @@ function formatDateTR(dateStr) {
 
 // ─── API ──────────────────────────────────────────────────────
 async function fetchMatches() {
-  if (API_KEY === '2678dbb14fe64d27950b6cab46526c28') {
-    showError('API key girilmedi. Dosyayı açıp <code>API_KEY</code> satırına key\'ini yapıştır.');
+  if (!API_KEY) {
+    showError('API key girilmedi.');
     return false;
   }
   try {
