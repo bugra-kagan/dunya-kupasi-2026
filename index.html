@@ -2,143 +2,611 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dünya Kupası 2026</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Buğra vs Tamer — Dünya Kupası 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
-body{margin:0;font-family:DM Sans;background:#0d1117;color:#e6edf3;max-width:430px;margin:auto}
-.header{padding:14px;background:#161b22;position:sticky;top:0}
-.logo{font-family:Bebas Neue;font-size:22px;color:#e8a825}
-.card{background:#161b22;margin:10px;border-radius:10px;padding:10px;border:1px solid #222}
-.match{padding:10px;border-bottom:1px solid #222}
-.team{display:flex;justify-content:space-between;font-size:14px}
-.score{font-size:20px;font-family:Bebas Neue;text-align:center}
-.btn{padding:5px 10px;background:#1a8c4e;border:0;color:white;border-radius:6px}
-.admin{background:#111;padding:10px}
-input{width:40px;text-align:center}
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bugra:#1a8c4e;--tamer:#c8202a;--gold:#e8a825;
+  --dark:#0d1117;--surface:#161b22;--card:#1c2230;
+  --border:rgba(255,255,255,0.08);--text:#e6edf3;--muted:#8b949e;
+}
+body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;max-width:430px;margin:0 auto;min-height:100vh;}
+
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 16px 10px;position:sticky;top:0;z-index:100;}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.logo{font-family:'Bebas Neue',cursive;font-size:20px;letter-spacing:2px;color:var(--gold);}
+.live-badge{background:var(--tamer);color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;letter-spacing:1px;animation:pulse 2s infinite;display:none;}
+.header-sub{font-size:10px;color:var(--muted);letter-spacing:0.5px;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+
+.scoreboard{background:#0f1923;border:1px solid var(--border);border-radius:12px;margin:14px 16px;padding:16px;position:relative;overflow:hidden;}
+.scoreboard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--bugra) 50%,var(--tamer) 50%);}
+.sb-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);text-align:center;margin-bottom:14px;}
+.sb-players{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;}
+.sb-player{display:flex;flex-direction:column;gap:3px;}
+.sb-player.home{align-items:flex-start;}
+.sb-player.away{align-items:flex-end;}
+.player-name{font-family:'Bebas Neue',cursive;font-size:22px;letter-spacing:1px;}
+.player-name.bugra{color:var(--bugra);}
+.player-name.tamer{color:var(--tamer);}
+.player-role{font-size:10px;color:var(--muted);}
+.score-display{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.score-nums{display:flex;align-items:center;gap:4px;}
+.score-num{font-family:'Bebas Neue',cursive;font-size:48px;line-height:1;min-width:44px;text-align:center;}
+.score-num.bs{color:var(--bugra);}
+.score-num.ts{color:var(--tamer);}
+.score-divider{font-family:'Bebas Neue',cursive;font-size:32px;color:var(--muted);line-height:1;}
+.score-sub{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.sb-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.sb-stat{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.sb-stat-val{font-family:'Bebas Neue',cursive;font-size:18px;color:var(--gold);}
+.sb-stat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;text-align:center;}
+
+.progress-section{margin:0 16px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;}
+.progress-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.progress-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--bugra),var(--gold),var(--tamer));border-radius:3px;transition:width 0.5s ease;}
+
+.tabs{display:flex;gap:0;margin:0 16px 14px;background:var(--card);border-radius:8px;padding:3px;border:1px solid var(--border);}
+.tab{flex:1;padding:7px;text-align:center;font-size:12px;font-weight:500;color:var(--muted);border-radius:6px;cursor:pointer;transition:all 0.2s;user-select:none;}
+.tab.active{background:var(--surface);color:var(--text);font-weight:600;}
+
+.section-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:0 16px;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.match-card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:0 16px 8px;overflow:hidden;transition:border-color 0.2s;}
+.match-card.live-match{border-color:rgba(200,32,42,0.5);}
+.match-card.bugra-won{border-left:3px solid var(--bugra);}
+.match-card.tamer-won{border-left:3px solid var(--tamer);}
+.match-card.draw-match{border-left:3px solid var(--gold);}
+.match-header{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid var(--border);}
+.match-group{font-size:10px;color:var(--muted);letter-spacing:0.5px;}
+.match-time{font-size:11px;font-weight:600;color:var(--gold);}
+.match-status{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;}
+.status-live{background:rgba(200,32,42,0.15);color:#ff6b6b;animation:pulse 1.5s infinite;}
+.status-upcoming{background:rgba(232,168,37,0.12);color:var(--gold);}
+.status-finished{background:rgba(139,148,158,0.1);color:var(--muted);}
+.match-body{padding:12px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;}
+.match-team{display:flex;flex-direction:column;gap:4px;}
+.match-team.home{align-items:flex-start;}
+.match-team.away{align-items:flex-end;}
+.team-crest{width:32px;height:32px;object-fit:contain;}
+.team-crest-fallback{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.team-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.2;max-width:110px;}
+.match-team.away .team-name{text-align:right;}
+.team-bet{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;margin-top:2px;}
+.bet-bugra{background:rgba(26,140,78,0.18);color:#5adb8c;}
+.bet-tamer{background:rgba(200,32,42,0.18);color:#ff8a8a;}
+.match-score-center{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.live-score{font-family:'Bebas Neue',cursive;font-size:28px;color:var(--text);line-height:1;}
+.live-score.in-play{color:#ff6b6b;}
+.vs-text{font-size:13px;color:var(--muted);font-weight:500;}
+.match-minute{font-size:10px;color:#ff6b6b;font-weight:600;}
+.match-footer{padding:6px 12px 8px;display:flex;align-items:center;justify-content:space-between;}
+.match-venue{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+.bet-result{font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;flex-shrink:0;}
+.r-bugra{background:rgba(26,140,78,0.15);color:#5adb8c;}
+.r-tamer{background:rgba(200,32,42,0.15);color:#ff8a8a;}
+.r-draw{background:rgba(232,168,37,0.15);color:var(--gold);}
+
+.group-filter{display:flex;gap:6px;padding:0 16px 12px;overflow-x:auto;scrollbar-width:none;}
+.group-filter::-webkit-scrollbar{display:none;}
+.gf-btn{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:all 0.2s;user-select:none;}
+.gf-btn.active{background:var(--gold);color:#000;border-color:var(--gold);font-weight:600;}
+
+/* ADMIN */
+.admin-match-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin:0 16px 8px;}
+.admin-match-name{font-size:11px;font-weight:600;margin-bottom:8px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.admin-score-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:8px;}
+.score-input{background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:6px;text-align:center;font-family:'Bebas Neue',cursive;font-size:20px;color:var(--text);width:100%;}
+.score-input:focus{outline:none;border-color:var(--gold);}
+.score-sep{font-family:'Bebas Neue',cursive;font-size:18px;color:var(--muted);text-align:center;}
+.admin-btn-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.admin-btn{padding:6px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--dark);color:var(--muted);transition:all 0.2s;text-align:center;}
+.admin-btn.save-btn{background:rgba(26,140,78,0.2);color:#5adb8c;border-color:rgba(26,140,78,0.3);}
+.admin-section-title{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:12px 16px 8px;display:flex;align-items:center;gap:8px;}
+.admin-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.info-banner{margin:0 16px 12px;background:rgba(232,168,37,0.08);border:1px solid rgba(232,168,37,0.2);border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;}
+.info-banner-icon{font-size:18px;}
+.info-banner-title{font-size:12px;font-weight:600;color:var(--gold);margin-bottom:3px;}
+.info-banner-sub{font-size:11px;color:var(--muted);line-height:1.5;}
+
+.loading{text-align:center;padding:40px 16px;color:var(--muted);}
+.loading-spin{font-size:28px;animation:spin 1s linear infinite;display:block;margin-bottom:10px;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}  }
+
+.error-banner{margin:0 16px 12px;background:rgba(200,32,42,0.08);border:1px solid rgba(200,32,42,0.2);border-radius:10px;padding:12px 14px;}
+.error-banner-title{font-size:12px;font-weight:600;color:#ff8a8a;margin-bottom:3px;}
+.error-banner-sub{font-size:11px;color:var(--muted);}
+
+.saved-flash{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a8c4e;color:#fff;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:600;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.saved-flash.show{opacity:1;}
+.bottom-space{height:32px;}
+.last-update{text-align:center;font-size:10px;color:var(--muted);padding:4px;letter-spacing:0.3px;}
 </style>
 </head>
-
 <body>
 
 <div class="header">
-  <div class="logo">🏆 WORLD CUP 2026 (API)</div>
+  <div class="header-top">
+    <div class="logo">🏆 Dünya Kupası 2026</div>
+    <div class="live-badge" id="live-badge">● CANLI</div>
+  </div>
+  <div class="header-sub">Buğra 🟢 Ev Sahibi &nbsp;|&nbsp; Tamer 🔴 Deplasman</div>
 </div>
 
-<div id="matches"></div>
-
-<div class="card admin">
-  <h4>Admin</h4>
-  <div id="admin"></div>
+<div class="scoreboard">
+  <div class="sb-label">İddaa Skoru — Grup Aşaması</div>
+  <div class="sb-players">
+    <div class="sb-player home">
+      <div class="player-name bugra">BUĞRA</div>
+      <div class="player-role">🏠 Ev Sahibi</div>
+    </div>
+    <div class="score-display">
+      <div class="score-nums">
+        <div class="score-num bs" id="sb-bugra">0</div>
+        <div class="score-divider">:</div>
+        <div class="score-num ts" id="sb-tamer">0</div>
+      </div>
+      <div class="score-sub">Kazanma</div>
+    </div>
+    <div class="sb-player away">
+      <div class="player-name tamer">TAMER</div>
+      <div class="player-role">✈️ Deplasman</div>
+    </div>
+  </div>
+  <div class="sb-stats">
+    <div class="sb-stat"><div class="sb-stat-val" id="stat-played">0</div><div class="sb-stat-lbl">Oynanan</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stat-draws">0</div><div class="sb-stat-lbl">Berabere</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stat-remaining">72</div><div class="sb-stat-lbl">Kalan</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stat-total">72</div><div class="sb-stat-lbl">Toplam</div></div>
+  </div>
 </div>
+
+<div class="progress-section">
+  <div class="progress-label">
+    <span>Turnuva İlerlemesi</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('today')">Bugün</div>
+  <div class="tab" onclick="switchTab('all')">Tümü</div>
+  <div class="tab" onclick="switchTab('results')">Sonuçlar</div>
+  <div class="tab" onclick="switchTab('admin')">⚙️</div>
+</div>
+
+<div id="today-view"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
+<div id="all-view" style="display:none"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
+<div id="results-view" style="display:none"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
+<div id="admin-view" style="display:none"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
+
+<div class="bottom-space"></div>
+<div class="saved-flash" id="saved-flash">✓ Kaydedildi</div>
 
 <script>
+// ─── CONFIG ──────────────────────────────────────────────────
+const API_KEY   = '2678dbb14fe64d27950b6cab46526c28'; // ← football-data.org key'ini buraya yaz
+const WC_CODE   = 'WC';
+const TR_OFFSET = 3; // UTC+3
 
-const API_KEY = "PUT_YOUR_KEY";
+// ─── STATE ───────────────────────────────────────────────────
+let allMatches  = [];   // API'den gelen ham maç listesi
+let scores      = JSON.parse(localStorage.getItem('wc2026_scores') || '{}');
+let activeTab   = 'today';
+let activeGroup = 'all';
+let lastUpdate  = null;
 
-let MATCHES = [];
-let scores = JSON.parse(localStorage.getItem("scores") || "{}");
-let live = {};
+// ─── COUNTRY → FLAG EMOJI ────────────────────────────────────
+const FLAG = {
+  'Mexico':'🇲🇽','South Africa':'🇿🇦','South Korea':'🇰🇷','Czechia':'🇨🇿',
+  'Canada':'🇨🇦','Bosnia and Herzegovina':'🇧🇦','Qatar':'🇶🇦','Switzerland':'🇨🇭',
+  'Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹','Scotland':'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+  'USA':'🇺🇸','United States':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺','Türkiye':'🇹🇷','Turkey':'🇹🇷',
+  'Germany':'🇩🇪','Curacao':'🇨🇼','Curaçao':'🇨🇼','Ivory Coast':'🇨🇮',"Côte d'Ivoire":'🇨🇮','Ecuador':'🇪🇨',
+  'Netherlands':'🇳🇱','Japan':'🇯🇵','Sweden':'🇸🇪','Tunisia':'🇹🇳',
+  'Belgium':'🇧🇪','Egypt':'🇪🇬','Iran':'🇮🇷','New Zealand':'🇳🇿',
+  'Spain':'🇪🇸','Cape Verde':'🇨🇻','Saudi Arabia':'🇸🇦','Uruguay':'🇺🇾',
+  'France':'🇫🇷','Senegal':'🇸🇳','Iraq':'🇮🇶','Norway':'🇳🇴',
+  'Argentina':'🇦🇷','Algeria':'🇩🇿','Austria':'🇦🇹','Jordan':'🇯🇴',
+  'Portugal':'🇵🇹','DR Congo':'🇨🇩','Uzbekistan':'🇺🇿','Colombia':'🇨🇴',
+  'England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦',
+  'Monterrey':'🇲🇽',
+};
 
-async function load() {
+const TR_NAME = {
+  'Mexico':'Meksika','South Africa':'Güney Afrika','South Korea':'Güney Kore','Czechia':'Çekya',
+  'Canada':'Kanada','Bosnia and Herzegovina':'Bosna Hersek','Qatar':'Katar','Switzerland':'İsviçre',
+  'Brazil':'Brezilya','Morocco':'Fas','Haiti':'Haiti','Scotland':'İskoçya',
+  'USA':'ABD','United States':'ABD','Paraguay':'Paraguay','Australia':'Avustralya','Türkiye':'Türkiye','Turkey':'Türkiye',
+  'Germany':'Almanya','Curacao':'Kürasao','Curaçao':'Kürasao','Ivory Coast':'Fildişi Sahili',"Côte d'Ivoire":'Fildişi Sahili','Ecuador':'Ekvador',
+  'Netherlands':'Hollanda','Japan':'Japonya','Sweden':'İsveç','Tunisia':'Tunus',
+  'Belgium':'Belçika','Egypt':'Mısır','Iran':'İran','New Zealand':'Yeni Zelanda',
+  'Spain':'İspanya','Cape Verde':'Yeşil Burun','Saudi Arabia':'Suudi Arabistan','Uruguay':'Uruguay',
+  'France':'Fransa','Senegal':'Senegal','Iraq':'Irak','Norway':'Norveç',
+  'Argentina':'Arjantin','Algeria':'Cezayir','Austria':'Avusturya','Jordan':'Ürdün',
+  'Portugal':'Portekiz','DR Congo':'DR Kongo','Uzbekistan':'Özbekistan','Colombia':'Kolombiya',
+  'England':'İngiltere','Croatia':'Hırvatistan','Ghana':'Gana','Panama':'Panama',
+};
 
-  const res = await fetch(
-    "https://api.football-data.org/v4/competitions/WC/matches",
-    { headers: { "X-Auth-Token": API_KEY } }
-  );
+function flag(name){ return FLAG[name] || '🏳️'; }
+function trName(name){ return TR_NAME[name] || name; }
 
-  const data = await res.json();
-
-  MATCHES = data.matches.map(m => ({
-    id: m.id,
-    home: m.homeTeam.name,
-    away: m.awayTeam.name,
-    date: m.utcDate
-  }));
-
-  render();
+// ─── TIME HELPERS ─────────────────────────────────────────────
+function utcToTR(utcStr) {
+  const d = new Date(utcStr);
+  d.setHours(d.getHours() + TR_OFFSET);
+  return d;
+}
+function trDateStr(utcStr) {
+  const d = utcToTR(utcStr);
+  return d.toISOString().slice(0,10);
+}
+function trTimeStr(utcStr) {
+  const d = utcToTR(utcStr);
+  return d.toISOString().slice(11,16);
+}
+function todayTR() {
+  const now = new Date();
+  now.setHours(now.getHours() + TR_OFFSET);
+  return now.toISOString().slice(0,10);
+}
+function formatDateTR(dateStr) {
+  const [y,m,d] = dateStr.split('-');
+  const months = ['','Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
+  return `${parseInt(d)} ${months[parseInt(m)]}`;
 }
 
-function save(id) {
-  const h = document.getElementById("h"+id).value;
-  const a = document.getElementById("a"+id).value;
-
-  scores[id] = {home:h,away:a};
-  localStorage.setItem("scores",JSON.stringify(scores));
-
-  render();
-}
-
-function render() {
-
-  let html = "";
-  let admin = "";
-
-  MATCHES.forEach(m => {
-
-    const s = scores[m.id];
-
-    html += `
-      <div class="card">
-        <div class="team">
-          <div>${m.home}</div>
-          <div>${m.away}</div>
-        </div>
-        <div class="score">
-          ${s ? s.home + " - " + s.away : "vs"}
-        </div>
-      </div>
-    `;
-
-    admin += `
-      <div>
-        ${m.home} vs ${m.away}<br>
-        <input id="h${m.id}" placeholder="0">
-        -
-        <input id="a${m.id}" placeholder="0">
-        <button class="btn" onclick="save('${m.id}')">Kaydet</button>
-        <hr>
-      </div>
-    `;
-  });
-
-  document.getElementById("matches").innerHTML = html;
-  document.getElementById("admin").innerHTML = admin;
-}
-
-async function liveScores() {
-
-  const today = new Date().toISOString().slice(0,10);
-
-  const res = await fetch(
-    `https://api.football-data.org/v4/competitions/WC/matches?dateFrom=${today}&dateTo=${today}`,
-    { headers: { "X-Auth-Token": API_KEY } }
-  );
-
-  const data = await res.json();
-
-  data.matches.forEach(m => {
-
-    const match = MATCHES.find(x => x.id === m.id);
-
-    if(match && m.status === "FINISHED") {
-      scores[m.id] = {
-        home: m.score.fullTime.home,
-        away: m.score.fullTime.away
-      };
+// ─── API ──────────────────────────────────────────────────────
+async function fetchMatches() {
+  if (API_KEY === '2678dbb14fe64d27950b6cab46526c28') {
+    showError('API key girilmedi. Dosyayı açıp <code>API_KEY</code> satırına key\'ini yapıştır.');
+    return false;
+  }
+  try {
+    const resp = await fetch(
+      `https://api.football-data.org/v4/competitions/${WC_CODE}/matches?stage=GROUP_STAGE`,
+      { headers: { 'X-Auth-Token': API_KEY } }
+    );
+    if (!resp.ok) {
+      const e = await resp.json().catch(()=>({}));
+      showError(`API Hatası ${resp.status}: ${e.message||'Bilinmeyen hata'}`);
+      return false;
     }
-  });
-
-  localStorage.setItem("scores",JSON.stringify(scores));
-  render();
+    const data = await resp.json();
+    allMatches = (data.matches || []).sort((a,b)=> new Date(a.utcDate)-new Date(b.utcDate));
+    lastUpdate = new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('stat-total').textContent = allMatches.length;
+    return true;
+  } catch(e) {
+    showError('Bağlantı hatası: '+e.message);
+    return false;
+  }
 }
 
-load();
-setInterval(liveScores,60000);
+function showError(msg) {
+  const html = `<div class="error-banner" style="margin-top:8px;">
+    <div class="error-banner-title">⚠️ Hata</div>
+    <div class="error-banner-sub">${msg}</div>
+  </div>`;
+  ['today-view','all-view','results-view','admin-view'].forEach(id=>{
+    document.getElementById(id).innerHTML = html;
+  });
+}
 
+// ─── RESULT LOGIC ─────────────────────────────────────────────
+// Buğra = ev sahibi (home), Tamer = deplasman (away)
+function getResult(match) {
+  // Önce API'den gelen skoru dene
+  const s = match.score;
+  let home = null, away = null;
+
+  if (s && s.fullTime && s.fullTime.home !== null) {
+    home = s.fullTime.home; away = s.fullTime.away;
+  } else {
+    // Manuel kayıt
+    const m = scores[match.id];
+    if (m && m.home !== '') { home = parseInt(m.home); away = parseInt(m.away); }
+  }
+  if (home === null) return null;
+  if (home > away) return 'bugra';
+  if (away > home) return 'tamer';
+  return 'draw';
+}
+
+function getScore(match) {
+  const s = match.score;
+  if (s && s.fullTime && s.fullTime.home !== null)
+    return { home: s.fullTime.home, away: s.fullTime.away };
+  const m = scores[match.id];
+  if (m && m.home !== '') return { home: parseInt(m.home), away: parseInt(m.away) };
+  // Canlı → half time
+  if (s && s.halfTime && s.halfTime.home !== null && match.status === 'IN_PLAY')
+    return { home: s.halfTime.home, away: s.halfTime.away };
+  return null;
+}
+
+// ─── SCOREBOARD ───────────────────────────────────────────────
+function computeScoreboard() {
+  let bugra=0,tamer=0,draws=0,played=0;
+  allMatches.forEach(m => {
+    const r = getResult(m);
+    if (r) { played++; if(r==='bugra')bugra++; else if(r==='tamer')tamer++; else draws++; }
+  });
+  const total = allMatches.length || 72;
+  document.getElementById('sb-bugra').textContent = bugra;
+  document.getElementById('sb-tamer').textContent = tamer;
+  document.getElementById('stat-played').textContent = played;
+  document.getElementById('stat-draws').textContent = draws;
+  document.getElementById('stat-remaining').textContent = total - played;
+  document.getElementById('stat-total').textContent = total;
+  const pct = total ? Math.round((played/total)*100) : 0;
+  document.getElementById('progress-pct').textContent = pct+'%';
+  document.getElementById('progress-fill').style.width = pct+'%';
+}
+
+// ─── MATCH CARD ───────────────────────────────────────────────
+function matchCard(m, showDate=false) {
+  const date = trDateStr(m.utcDate);
+  const time = trTimeStr(m.utcDate);
+  const today = todayTR();
+  const score = getScore(m);
+  const result = getResult(m);
+  const status = m.status; // SCHEDULED, IN_PLAY, PAUSED, FINISHED, TIMED
+  const isLive = status==='IN_PLAY'||status==='PAUSED';
+  const isFinished = status==='FINISHED';
+  const homeName = m.homeTeam.name || m.homeTeam.shortName;
+  const awayName = m.awayTeam.name || m.awayTeam.shortName;
+  const homeCrest = m.homeTeam.crest;
+  const awayCrest = m.awayTeam.crest;
+  const groupLabel = m.group ? m.group.replace('GROUP_','Grup ') : '';
+
+  let cardClass = '';
+  if (result==='bugra') cardClass='bugra-won';
+  else if (result==='tamer') cardClass='tamer-won';
+  else if (result==='draw') cardClass='draw-match';
+  if (isLive) cardClass += ' live-match';
+
+  let statusHtml = '';
+  if (isLive) statusHtml = `<span class="match-status status-live">● ${m.minute||'...'}'</span>`;
+  else if (isFinished) statusHtml = `<span class="match-status status-finished">Bitti</span>`;
+  else statusHtml = `<span class="match-status status-upcoming">${showDate ? formatDateTR(date) : time}</span>`;
+
+  const timeLabel = showDate ? `${formatDateTR(date)} ${time}` : time;
+
+  let scoreHtml = '';
+  if (score) {
+    scoreHtml = `<div class="live-score${isLive?' in-play':''}">${score.home} - ${score.away}</div>`;
+    if (isLive && m.minute) scoreHtml += `<div class="match-minute">● ${m.minute}'</div>`;
+  } else {
+    scoreHtml = `<div class="vs-text">vs</div>`;
+  }
+
+  let resultBadge = '';
+  if (result==='bugra') resultBadge='<span class="bet-result r-bugra">Buğra</span>';
+  else if (result==='tamer') resultBadge='<span class="bet-result r-tamer">Tamer</span>';
+  else if (result==='draw') resultBadge='<span class="bet-result r-draw">Berabere</span>';
+
+  const homeCrestHtml = homeCrest
+    ? `<img class="team-crest" src="${homeCrest}" alt="" onerror="this.style.display='none'">`
+    : `<div class="team-crest-fallback">${flag(homeName)}</div>`;
+  const awayCrestHtml = awayCrest
+    ? `<img class="team-crest" src="${awayCrest}" alt="" onerror="this.style.display='none'">`
+    : `<div class="team-crest-fallback">${flag(awayName)}</div>`;
+
+  return `
+  <div class="match-card ${cardClass}">
+    <div class="match-header">
+      <span class="match-group">${groupLabel}</span>
+      <span class="match-time">${timeLabel}</span>
+      ${statusHtml}
+    </div>
+    <div class="match-body">
+      <div class="match-team home">
+        ${homeCrestHtml}
+        <div class="team-name">${trName(homeName)}</div>
+        <div class="team-bet bet-bugra">Buğra 🏠</div>
+      </div>
+      <div class="match-score-center">${scoreHtml}</div>
+      <div class="match-team away">
+        ${awayCrestHtml}
+        <div class="team-name">${trName(awayName)}</div>
+        <div class="team-bet bet-tamer">Tamer ✈️</div>
+      </div>
+    </div>
+    <div class="match-footer">
+      <span class="match-venue">📍 ${m.venue||''}</span>
+      ${resultBadge}
+    </div>
+  </div>`;
+}
+
+// ─── VIEWS ────────────────────────────────────────────────────
+function renderToday() {
+  const today = todayTR();
+  const container = document.getElementById('today-view');
+  const todayMs = allMatches.filter(m => trDateStr(m.utcDate) === today);
+  const hasLive = todayMs.some(m => m.status==='IN_PLAY'||m.status==='PAUSED');
+  document.getElementById('live-badge').style.display = hasLive ? 'block' : 'none';
+
+  if (todayMs.length > 0) {
+    container.innerHTML = todayMs.map(m => matchCard(m, false)).join('') +
+      `<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+  } else {
+    // Yaklaşan 6 maç
+    const upcoming = allMatches.filter(m => trDateStr(m.utcDate) > today).slice(0,6);
+    const past = allMatches.filter(m => {
+      const d = trDateStr(m.utcDate);
+      return d < today && (m.status==='FINISHED'||getScore(m));
+    }).slice(-2);
+
+    let html = `<div class="info-banner">
+      <div class="info-banner-icon">📅</div>
+      <div>
+        <div class="info-banner-title">Bugün maç yok</div>
+        <div class="info-banner-sub">Yaklaşan maçlar ve son sonuçlar aşağıda.</div>
+      </div>
+    </div>`;
+
+    if (past.length) {
+      html += `<div class="section-title">Son Sonuçlar</div>`;
+      html += past.map(m=>matchCard(m,true)).join('');
+    }
+    if (upcoming.length) {
+      let lastDate = null;
+      upcoming.forEach(m => {
+        const d = trDateStr(m.utcDate);
+        if (d !== lastDate) { html += `<div class="section-title">📅 ${formatDateTR(d)}</div>`; lastDate = d; }
+        html += matchCard(m, false);
+      });
+    }
+    html += `<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+    container.innerHTML = html;
+  }
+}
+
+function renderAll() {
+  const container = document.getElementById('all-view');
+  const groups = [...new Set(allMatches.map(m => m.group))].filter(Boolean).sort();
+  const filtered = activeGroup === 'all' ? allMatches : allMatches.filter(m => m.group === activeGroup);
+
+  let filterHtml = `<div class="group-filter">
+    <div class="gf-btn${activeGroup==='all'?' active':''}" onclick="filterGroup('all',this)">Tümü</div>`;
+  groups.forEach(g => {
+    const label = g.replace('GROUP_','');
+    filterHtml += `<div class="gf-btn${activeGroup===g?' active':''}" onclick="filterGroup('${g}',this)">Grup ${label}</div>`;
+  });
+  filterHtml += '</div>';
+
+  let cards = '';
+  let lastGroup = null;
+  filtered.forEach(m => {
+    if (m.group !== lastGroup) {
+      cards += `<div class="section-title">Grup ${(m.group||'').replace('GROUP_','')}</div>`;
+      lastGroup = m.group;
+    }
+    cards += matchCard(m, true);
+  });
+
+  container.innerHTML = filterHtml + cards + `<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+}
+
+function renderResults() {
+  const container = document.getElementById('results-view');
+  const done = allMatches.filter(m => getResult(m));
+  if (!done.length) {
+    container.innerHTML = `<div class="info-banner">
+      <div class="info-banner-icon">🏁</div>
+      <div>
+        <div class="info-banner-title">Henüz sonuç yok</div>
+        <div class="info-banner-sub">Tamamlanan maçlar burada görünecek.</div>
+      </div>
+    </div>`;
+    return;
+  }
+  const sorted = [...done].sort((a,b)=> new Date(b.utcDate)-new Date(a.utcDate));
+  container.innerHTML = sorted.map(m=>matchCard(m,true)).join('') +
+    `<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+}
+
+function renderAdmin() {
+  const container = document.getElementById('admin-view');
+  // Sadece geçmiş ve bugünkü maçları göster (henüz API skoru yoksa manuel giriş için)
+  const today = todayTR();
+  const relevant = allMatches.filter(m => trDateStr(m.utcDate) <= today);
+  if (!relevant.length) {
+    container.innerHTML = `<div class="info-banner" style="margin:16px">
+      <div class="info-banner-icon">⏳</div>
+      <div><div class="info-banner-title">Henüz maç başlamadı</div></div>
+    </div>`;
+    return;
+  }
+  let html = `<div class="admin-section-title">Manuel Skor Girişi</div>
+    <div style="padding:0 16px 10px;font-size:11px;color:var(--muted);">API skoru olmayan maçlar için skor girebilirsin. API'den gelen skorlar otomatik uygulanır.</div>`;
+  relevant.slice().reverse().forEach(m => {
+    const s = scores[m.id] || {home:'',away:''};
+    const hn = trName(m.homeTeam.name||m.homeTeam.shortName||'');
+    const an = trName(m.awayTeam.name||m.awayTeam.shortName||'');
+    const hf = flag(m.homeTeam.name);
+    const af = flag(m.awayTeam.name);
+    const d = formatDateTR(trDateStr(m.utcDate));
+    const apiScore = getScore(m);
+    const apiLabel = apiScore ? `<span style="color:#5adb8c;font-size:10px;">API: ${apiScore.home}-${apiScore.away}</span>` : '';
+    html += `
+    <div class="admin-match-item">
+      <div class="admin-match-name">${hf} ${hn} vs ${an} ${af} — ${d} ${apiLabel}</div>
+      <div class="admin-score-row">
+        <input class="score-input" type="number" min="0" max="20" placeholder="?" value="${s.home}" id="h-${m.id}">
+        <div class="score-sep">-</div>
+        <input class="score-input" type="number" min="0" max="20" placeholder="?" value="${s.away}" id="a-${m.id}">
+      </div>
+      <div class="admin-btn-row">
+        <div class="admin-btn" onclick="qs('${m.id}','1','0')">1-0</div>
+        <div class="admin-btn save-btn" onclick="saveScore(${m.id})">💾 Kaydet</div>
+        <div class="admin-btn" onclick="qs('${m.id}','0','1')">0-1</div>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ─── INTERACTIONS ─────────────────────────────────────────────
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', ['today','all','results','admin'][i]===tab);
+  });
+  ['today','all','results','admin'].forEach(v => {
+    document.getElementById(v+'-view').style.display = v===tab?'block':'none';
+  });
+  if (tab==='today') renderToday();
+  else if (tab==='all') renderAll();
+  else if (tab==='results') renderResults();
+  else if (tab==='admin') renderAdmin();
+}
+
+function filterGroup(g, el) {
+  activeGroup = g;
+  renderAll();
+}
+
+function qs(id, h, a) {
+  document.getElementById('h-'+id).value = h;
+  document.getElementById('a-'+id).value = a;
+}
+
+function saveScore(id) {
+  const h = document.getElementById('h-'+id).value;
+  const a = document.getElementById('a-'+id).value;
+  if (h===''||a==='') return;
+  scores[id] = {home:h, away:a};
+  localStorage.setItem('wc2026_scores', JSON.stringify(scores));
+  computeScoreboard();
+  const f = document.getElementById('saved-flash');
+  f.classList.add('show');
+  setTimeout(()=>f.classList.remove('show'),1800);
+}
+
+// ─── REFRESH ──────────────────────────────────────────────────
+async function refresh() {
+  const ok = await fetchMatches();
+  if (!ok) return;
+  computeScoreboard();
+  if (activeTab==='today') renderToday();
+  else if (activeTab==='all') renderAll();
+  else if (activeTab==='results') renderResults();
+  else if (activeTab==='admin') renderAdmin();
+}
+
+// ─── INIT ─────────────────────────────────────────────────────
+refresh();
+setInterval(refresh, 60000);
 </script>
-
 </body>
 </html>
