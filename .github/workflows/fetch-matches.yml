@@ -5,7 +5,7 @@ on:
     # Her 5 dakikada bir çalışır (GitHub'ın izin verdiği minimum)
     - cron: '*/5 * * * *'
   workflow_dispatch: # Manuel tetikleme için
-
+#deneme# 
 jobs:
   fetch:
     runs-on: ubuntu-latest
