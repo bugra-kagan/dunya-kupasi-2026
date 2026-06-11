@@ -192,8 +192,6 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────
-const API_KEY   = '2678dbb14fe64d27950b6cab46526c28'; // ← football-data.org key'ini buraya yaz
-const WC_CODE   = 'WC';
 const TR_OFFSET = 3; // UTC+3
 
 // ─── STATE ───────────────────────────────────────────────────
@@ -263,29 +261,27 @@ function formatDateTR(dateStr) {
   return `${parseInt(d)} ${months[parseInt(m)]}`;
 }
 
-// ─── API ──────────────────────────────────────────────────────
+// ─── DATA FETCH (local data.json — GitHub Actions tarafından güncellenir) ────
 async function fetchMatches() {
-  if (!API_KEY) {
-    showError('API key girilmedi.');
-    return false;
-  }
   try {
-    const resp = await fetch(
-      `https://api.football-data.org/v4/competitions/${WC_CODE}/matches?stage=GROUP_STAGE`,
-      { headers: { 'X-Auth-Token': API_KEY } }
-    );
+    const resp = await fetch(`data.json?t=${Date.now()}`);
     if (!resp.ok) {
-      const e = await resp.json().catch(()=>({}));
-      showError(`API Hatası ${resp.status}: ${e.message||'Bilinmeyen hata'}`);
+      showError(`data.json yüklenemedi (${resp.status}). GitHub Actions workflow çalışıyor mu?`);
       return false;
     }
     const data = await resp.json();
     allMatches = (data.matches || []).sort((a,b)=> new Date(a.utcDate)-new Date(b.utcDate));
-    lastUpdate = new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    // data.json içindeki fetchedAt zamanını göster
+    if (data.fetchedAt) {
+      const d = new Date(data.fetchedAt);
+      lastUpdate = d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}) + ' (GH Actions)';
+    } else {
+      lastUpdate = new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    }
     document.getElementById('stat-total').textContent = allMatches.length;
     return true;
   } catch(e) {
-    showError('Bağlantı hatası: '+e.message);
+    showError('data.json okunamadı: ' + e.message);
     return false;
   }
 }
