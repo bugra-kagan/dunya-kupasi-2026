@@ -23,9 +23,15 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
 
 .scoreboard{background:#0f1923;border:1px solid var(--border);border-radius:12px;margin:14px 16px;padding:16px;position:relative;overflow:hidden;}
-.scoreboard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--bugra) 50%,var(--tamer) 50%);}
+.scoreboard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--bugra) 33%,var(--gold) 33%,var(--gold) 66%,var(--tamer) 66%);}
+.player-name.inci{color:var(--gold);}
+.inci-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+.inci-score{font-family:'Bebas Neue',cursive;font-size:36px;color:var(--gold);line-height:1;}
+.inci-label{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.inci-name{font-family:'Bebas Neue',cursive;font-size:22px;letter-spacing:1px;color:var(--gold);}
+.inci-role{font-size:10px;color:var(--muted);}
 .sb-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);text-align:center;margin-bottom:14px;}
-.sb-players{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;}
+.sb-players{display:flex;justify-content:center;align-items:center;}
 .sb-player{display:flex;flex-direction:column;gap:3px;}
 .sb-player.home{align-items:flex-start;}
 .sb-player.away{align-items:flex-end;}
@@ -34,10 +40,15 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 .player-name.tamer{color:var(--tamer);}
 .player-role{font-size:10px;color:var(--muted);}
 .score-display{display:flex;flex-direction:column;align-items:center;gap:2px;}
-.score-nums{display:flex;align-items:center;gap:4px;}
-.score-num{font-family:'Bebas Neue',cursive;font-size:48px;line-height:1;min-width:44px;text-align:center;}
+.score-nums{display:flex;align-items:center;gap:10px;}
+.score-num{font-family:'Bebas Neue',cursive;font-size:44px;line-height:1;min-width:44px;text-align:center;}
 .score-num.bs{color:var(--bugra);}
+.score-num.is{color:var(--gold);}
 .score-num.ts{color:var(--tamer);}
+.score-sub-trio{display:flex;gap:20px;justify-content:center;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:8px;}
+.trio-bugra{color:var(--bugra);}
+.trio-inci{color:var(--gold);}
+.trio-tamer{color:var(--tamer);}
 .score-divider{font-family:'Bebas Neue',cursive;font-size:32px;color:var(--muted);line-height:1;}
 .score-sub{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
 .sb-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
@@ -136,27 +147,25 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
     <div class="logo">🏆 Dünya Kupası 2026</div>
     <div class="live-badge" id="live-badge">● CANLI</div>
   </div>
-  <div class="header-sub">Buğra 🟢 Ev Sahibi &nbsp;|&nbsp; Tamer 🔴 Deplasman</div>
+  <div class="header-sub">Buğra 🟢 Ev Sahibi &nbsp;|&nbsp; Tamer 🔴 Deplasman &nbsp;|&nbsp; İnci 🟡 Beraberlik</div>
 </div>
 
 <div class="scoreboard">
   <div class="sb-label">Bira Kupası '26 — Grup Aşaması</div>
   <div class="sb-players">
-    <div class="sb-player home">
-      <div class="player-name bugra">BUĞRA</div>
-      <div class="player-role">🏠 Ev Sahibi</div>
-    </div>
     <div class="score-display">
       <div class="score-nums">
         <div class="score-num bs" id="sb-bugra">0</div>
         <div class="score-divider">:</div>
+        <div class="score-num is" id="sb-inci">0</div>
+        <div class="score-divider">:</div>
         <div class="score-num ts" id="sb-tamer">0</div>
       </div>
-      <div class="score-sub">Kazanma</div>
-    </div>
-    <div class="sb-player away">
-      <div class="player-name tamer">TAMER</div>
-      <div class="player-role">✈️ Deplasman</div>
+      <div class="score-sub-trio">
+        <span class="trio-bugra">Buğra 🏠</span>
+        <span class="trio-inci">İnci 🤝</span>
+        <span class="trio-tamer">Tamer ✈️</span>
+      </div>
     </div>
   </div>
   <div class="sb-stats">
@@ -338,6 +347,7 @@ function computeScoreboard() {
   const total = allMatches.length || 72;
   document.getElementById('sb-bugra').textContent = bugra;
   document.getElementById('sb-tamer').textContent = tamer;
+  document.getElementById('sb-inci').textContent = draws;
   document.getElementById('stat-played').textContent = played;
   document.getElementById('stat-draws').textContent = draws;
   document.getElementById('stat-remaining').textContent = total - played;
@@ -387,7 +397,7 @@ function matchCard(m, showDate=false) {
   let resultBadge = '';
   if (result==='bugra') resultBadge='<span class="bet-result r-bugra">Buğra</span>';
   else if (result==='tamer') resultBadge='<span class="bet-result r-tamer">Tamer</span>';
-  else if (result==='draw') resultBadge='<span class="bet-result r-draw">Berabere</span>';
+  else if (result==='draw') resultBadge='<span class="bet-result r-draw">İnci 🤝</span>';
 
   const homeCrestHtml = homeCrest
     ? `<img class="team-crest" src="${homeCrest}" alt="" onerror="this.style.display='none'">`
