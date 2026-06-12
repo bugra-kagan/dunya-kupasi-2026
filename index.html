@@ -137,6 +137,7 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 .saved-flash{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a8c4e;color:#fff;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:600;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;}
 .saved-flash.show{opacity:1;}
 .bottom-space{height:32px;}
+.day-label{text-align:center;font-size:13px;color:var(--muted);padding:10px 0 4px;letter-spacing:1px;text-transform:uppercase;}
 .last-update{text-align:center;font-size:10px;color:var(--muted);padding:4px;letter-spacing:0.3px;}
 </style>
 </head>
@@ -186,12 +187,13 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 
 <div class="tabs">
   <div class="tab active" onclick="switchTab('today')">Bugün</div>
+  <div class="tab" onclick="switchTab('tomorrow')">Yarın</div>
   <div class="tab" onclick="switchTab('all')">Tümü</div>
   <div class="tab" onclick="switchTab('results')">Sonuçlar</div>
-  <div class="tab" onclick="switchTab('admin')">⚙️</div>
 </div>
 
 <div id="today-view"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
+<div id="tomorrow-view" style="display:none"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
 <div id="all-view" style="display:none"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
 <div id="results-view" style="display:none"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
 <div id="admin-view" style="display:none"><div class="loading"><span class="loading-spin">⚽</span>Yükleniyor...</div></div>
@@ -477,6 +479,27 @@ function renderToday() {
   }
 }
 
+function renderTomorrow() {
+  const today = todayTR();
+  // Yarının tarihini bul: bugünden sonraki ilk farklı gün
+  const futureDates = [...new Set(
+    allMatches
+      .filter(m => trDateStr(m.utcDate) > today)
+      .map(m => trDateStr(m.utcDate))
+  )].sort();
+  const tomorrow = futureDates[0] || null;
+  const container = document.getElementById('tomorrow-view');
+  if (!tomorrow) {
+    container.innerHTML = '<div class="empty-state">🗓️ Yaklaşan maç bulunamadı</div>';
+    return;
+  }
+  const tomorrowMs = allMatches.filter(m => trDateStr(m.utcDate) === tomorrow);
+  const label = new Date(tomorrowMs[0].utcDate).toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long',timeZone:'Europe/Istanbul'});
+  container.innerHTML = `<div class="day-label">${label}</div>` +
+    tomorrowMs.map(m => matchCard(m, false)).join('') +
+    `<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+}
+
 function renderAll() {
   const container = document.getElementById('all-view');
   const groups = [...new Set(allMatches.map(m => m.group))].filter(Boolean).sort();
@@ -566,15 +589,15 @@ function renderAdmin() {
 function switchTab(tab) {
   activeTab = tab;
   document.querySelectorAll('.tab').forEach((t,i) => {
-    t.classList.toggle('active', ['today','all','results','admin'][i]===tab);
+    t.classList.toggle('active', ['today','tomorrow','all','results'][i]===tab);
   });
-  ['today','all','results','admin'].forEach(v => {
+  ['today','tomorrow','all','results','admin'].forEach(v => {
     document.getElementById(v+'-view').style.display = v===tab?'block':'none';
   });
   if (tab==='today') renderToday();
+  else if (tab==='tomorrow') renderTomorrow();
   else if (tab==='all') renderAll();
   else if (tab==='results') renderResults();
-  else if (tab==='admin') renderAdmin();
 }
 
 function filterGroup(g, el) {
