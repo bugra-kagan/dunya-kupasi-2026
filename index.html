@@ -439,12 +439,18 @@ function matchCard(m, showDate=false) {
 function renderToday() {
   const today = todayTR();
   const container = document.getElementById('today-view');
+  // Tarihine bakılmaksızın canlı/yarıda maçları da dahil et
+  const liveMs = allMatches.filter(m => m.status==='IN_PLAY'||m.status==='PAUSED');
   const todayMs = allMatches.filter(m => trDateStr(m.utcDate) === today);
-  const hasLive = todayMs.some(m => m.status==='IN_PLAY'||m.status==='PAUSED');
+  // Birleştir, tekrarları kaldır
+  const todayIds = new Set(todayMs.map(m => m.id));
+  const combined = [...todayMs, ...liveMs.filter(m => !todayIds.has(m.id))];
+  combined.sort((a,b) => new Date(a.utcDate) - new Date(b.utcDate));
+  const hasLive = combined.some(m => m.status==='IN_PLAY'||m.status==='PAUSED');
   document.getElementById('live-badge').style.display = hasLive ? 'block' : 'none';
 
-  if (todayMs.length > 0) {
-    container.innerHTML = todayMs.map(m => matchCard(m, false)).join('') +
+  if (combined.length > 0) {
+    container.innerHTML = combined.map(m => matchCard(m, false)).join('') +
       `<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
   } else {
     // Yaklaşan 6 maç
