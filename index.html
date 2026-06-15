@@ -171,6 +171,7 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 .ozet-screenshot-btn{width:100%;margin-top:16px;background:rgba(255,255,255,0.08);color:#fff;border:none;border-radius:10px;padding:10px;font-size:12px;cursor:pointer;font-weight:600;}
 .ozet-screenshot-btn:active{opacity:0.7;}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -483,13 +484,8 @@ function matchCard(m, showDate=false) {
 function renderToday() {
   const today = todayTR();
   const container = document.getElementById('today-view');
-  // Canlı/yarıda maçları + son 3 saatte başlamış maçları da dahil et
-  const nowMs = Date.now();
-  const liveMs = allMatches.filter(m => {
-    const isLive = m.status==='IN_PLAY'||m.status==='PAUSED';
-    const recentlyStarted = (nowMs - new Date(m.utcDate).getTime()) < 3*60*60*1000;
-    return isLive || recentlyStarted;
-  });
+  // Bugünün maçları + tarihten bağımsız canlı/yarıda maçlar
+  const liveMs = allMatches.filter(m => m.status==='IN_PLAY'||m.status==='PAUSED');
   const todayMs = allMatches.filter(m => trDateStr(m.utcDate) === today);
   // Birleştir, tekrarları kaldır
   const todayIds = new Set(todayMs.map(m => m.id));
@@ -694,21 +690,22 @@ setInterval(refresh, 60000);
 
 function showOzet() {
   const today = todayTR();
-  const nowMs = Date.now();
+  // Dünün tarihi (TR)
+  const yesterdayDate = new Date();
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yesterday = yesterdayDate.toLocaleDateString('sv-SE', {timeZone:'Europe/Istanbul'});
 
-  // Bugün sekmesiyle aynı mantık
-  const liveMs = allMatches.filter(m => {
-    const isLive = m.status==='IN_PLAY'||m.status==='PAUSED';
-    const recentlyStarted = (nowMs - new Date(m.utcDate).getTime()) < 3*60*60*1000;
-    return isLive || recentlyStarted;
+  // Dün + bugün + canlı maçlar
+  const liveMs = allMatches.filter(m => m.status==='IN_PLAY'||m.status==='PAUSED');
+  const recentMs = allMatches.filter(m => {
+    const d = trDateStr(m.utcDate);
+    return (d === today || d === yesterday) && (m.status==='FINISHED'||m.status==='IN_PLAY'||m.status==='PAUSED');
   });
-  const todayMs = allMatches.filter(m => trDateStr(m.utcDate) === today);
-  const todayIds = new Set(todayMs.map(m => m.id));
-  const matches = [...todayMs, ...liveMs.filter(m => !todayIds.has(m.id))];
+  const recentIds = new Set(recentMs.map(m => m.id));
+  const matches = [...recentMs, ...liveMs.filter(m => !recentIds.has(m.id))];
   matches.sort((a,b) => new Date(a.utcDate) - new Date(b.utcDate));
 
-  // IN_PLAY ama skoru olan maçları da bitti say
-  const finished = matches.filter(m => m.status==='FINISHED' || (m.status==='IN_PLAY' && m.score?.fullTime?.home !== null));
+  const finished = matches.filter(m => m.status==='FINISHED');
 
   // Günün skoru
   let dayBugra = 0, dayTamer = 0, dayInci = 0;
@@ -808,7 +805,28 @@ function closeOzet() {
 }
 
 function screenshotOzet() {
-  alert('Ekran görüntüsü almak için telefonunuzda güç + ses kısma tuşuna basın.');
+  const card = document.getElementById('ozet-card');
+  const btn = card.querySelector('.ozet-screenshot-btn');
+  const closeBtn = card.querySelector('.ozet-close');
+  btn.style.display = 'none';
+  closeBtn.style.display = 'none';
+  html2canvas(card, {
+    backgroundColor: '#1a1a2e',
+    scale: 2,
+    useCORS: true
+  }).then(canvas => {
+    btn.style.display = '';
+    closeBtn.style.display = '';
+    const link = document.createElement('a');
+    const dateStr = new Date().toLocaleDateString('tr-TR').replace(/\./g,'-');
+    link.download = 'dunya-kupasi-ozet-' + dateStr + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }).catch(() => {
+    btn.style.display = '';
+    closeBtn.style.display = '';
+    alert('Görüntü alınamadı, ekran görüntüsünü manuel alabilirsiniz.');
+  });
 }
 
 </script>
