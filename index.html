@@ -747,8 +747,7 @@ const yesterdayObj = new Date();
 yesterdayObj.setDate(yesterdayObj.getDate() - 1);
 
 const yesterdayStr = yesterdayObj.toLocaleDateString('sv-SE', {
-  timeZone: 'Europe/Istanbul'
-});
+  timeZone: 'Europe/Istanbul'});
   
   const visibleMatches = matches.filter(m => {
     const isActive = m.status==='FINISHED' || m.status==='IN_PLAY' || m.status==='PAUSED';
