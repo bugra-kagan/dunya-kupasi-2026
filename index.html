@@ -757,8 +757,8 @@ const yesterdayStr = yesterdayObj.toLocaleDateString('sv-SE', {
   }).filter(m => m.status==='FINISHED'||m.status==='IN_PLAY'||m.status==='PAUSED');
 
   const matchRows = visibleMatches.map(m => {
-    const home = m.homeTeam?.shortName||m.homeTeam?.name||'?';
-    const away = m.awayTeam?.shortName||m.awayTeam?.name||'?';
+    const home = `${flag(homeName)} ${trName(homeName)}`;
+    const away = `${flag(awayName)} ${trName(awayName)}`;
     const hasScore = m.score?.fullTime?.home !== null && m.score?.fullTime?.home !== undefined;
     const score = (m.status==='FINISHED' || (m.status==='IN_PLAY' && hasScore)) ? `${m.score?.fullTime?.home} - ${m.score?.fullTime?.away}` : 'vs';
     const r = getResult(m);
