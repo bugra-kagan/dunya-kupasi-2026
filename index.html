@@ -743,9 +743,12 @@ function showOzet() {
 
   // Maç listesi
   // Sadece biten, oynanan veya dün/bugün içindeki maçlar
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayStr = yesterday.toLocaleDateString('sv-SE', {timeZone:'Europe/Istanbul'}).replace(/-/g,'-');
+const yesterdayObj = new Date();
+yesterdayObj.setDate(yesterdayObj.getDate() - 1);
+
+const yesterdayStr = yesterdayObj.toLocaleDateString('sv-SE', {
+  timeZone: 'Europe/Istanbul'
+});
   
   const visibleMatches = matches.filter(m => {
     const isActive = m.status==='FINISHED' || m.status==='IN_PLAY' || m.status==='PAUSED';
