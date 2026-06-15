@@ -140,7 +140,7 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 .day-label{text-align:center;font-size:13px;color:var(--muted);padding:10px 0 4px;letter-spacing:1px;text-transform:uppercase;}
 .last-update{text-align:center;font-size:10px;color:var(--muted);padding:4px;letter-spacing:0.3px;}
 
-.ozet-bar{padding:10px 16px 0;text-align:center;}
+.ozet-bar{padding:10px 16px 12px;text-align:center;position:relative;z-index:1;}
 .ozet-btn{background:linear-gradient(135deg,#1a472a,#2d6a4f);color:#fff;border:none;border-radius:20px;padding:10px 24px;font-size:13px;font-weight:600;letter-spacing:0.5px;cursor:pointer;width:100%;max-width:400px;}
 .ozet-btn:active{opacity:0.8;}
 .ozet-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;}
@@ -707,7 +707,8 @@ function showOzet() {
   const matches = [...todayMs, ...liveMs.filter(m => !todayIds.has(m.id))];
   matches.sort((a,b) => new Date(a.utcDate) - new Date(b.utcDate));
 
-  const finished = matches.filter(m => m.status==='FINISHED');
+  // IN_PLAY ama skoru olan maçları da bitti say
+  const finished = matches.filter(m => m.status==='FINISHED' || (m.status==='IN_PLAY' && m.score?.fullTime?.home !== null));
 
   // Günün skoru
   let dayBugra = 0, dayTamer = 0, dayInci = 0;
@@ -745,9 +746,10 @@ function showOzet() {
 
   // Maç listesi
   const matchRows = matches.map(m => {
-    const home = TEAM_TR[m.homeTeam?.name]||m.homeTeam?.shortName||m.homeTeam?.name||'?';
-    const away = TEAM_TR[m.awayTeam?.name]||m.awayTeam?.shortName||m.awayTeam?.name||'?';
-    const score = m.status==='FINISHED' ? `${m.score?.fullTime?.home??'?'} - ${m.score?.fullTime?.away??'?'}` : 'vs';
+    const home = m.homeTeam?.shortName||m.homeTeam?.name||'?';
+    const away = m.awayTeam?.shortName||m.awayTeam?.name||'?';
+    const hasScore = m.score?.fullTime?.home !== null && m.score?.fullTime?.home !== undefined;
+    const score = (m.status==='FINISHED' || (m.status==='IN_PLAY' && hasScore)) ? `${m.score?.fullTime?.home} - ${m.score?.fullTime?.away}` : 'vs';
     const r = getResult(m);
     const badgeCls = r==='bugra'?'b':r==='tamer'?'t':r==='draw'?'i':'p';
     const badgeTxt = r==='bugra'?'Buğra':r==='tamer'?'Tamer':r==='draw'?'İnci':'—';
