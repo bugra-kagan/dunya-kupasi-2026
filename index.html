@@ -745,7 +745,19 @@ function showOzet() {
   const dateLabel = new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',weekday:'long'});
 
   // Maç listesi
-  const matchRows = matches.map(m => {
+  // Sadece biten, oynanan veya dün/bugün içindeki maçlar
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toLocaleDateString('sv-SE', {timeZone:'Europe/Istanbul'}).replace(/-/g,'-');
+  
+  const visibleMatches = matches.filter(m => {
+    const isActive = m.status==='FINISHED' || m.status==='IN_PLAY' || m.status==='PAUSED';
+    const matchDay = trDateStr(m.utcDate);
+    const isRecentDay = matchDay === today || matchDay === yesterdayStr;
+    return isActive || isRecentDay && (m.status==='FINISHED'||m.status==='IN_PLAY'||m.status==='PAUSED');
+  }).filter(m => m.status==='FINISHED'||m.status==='IN_PLAY'||m.status==='PAUSED');
+
+  const matchRows = visibleMatches.map(m => {
     const home = m.homeTeam?.shortName||m.homeTeam?.name||'?';
     const away = m.awayTeam?.shortName||m.awayTeam?.name||'?';
     const hasScore = m.score?.fullTime?.home !== null && m.score?.fullTime?.home !== undefined;
@@ -784,7 +796,7 @@ function showOzet() {
       </div>
     </div>
     <div class="ozet-winner">Günün Galibi: ${winnerText} <br><small style="font-weight:400;color:var(--muted)">(${dayBugra} Buğra · ${dayInci} İnci · ${dayTamer} Tamer)</small></div>
-    <div class="ozet-matches-title">Bugünün Maçları (${finished.length}/${matches.length} bitti)</div>
+    <div class="ozet-matches-title">Bugünün Maçları (${visibleMatches.filter(m=>m.status==='FINISHED').length}/${visibleMatches.length} bitti)</div>
     ${matchRows}
   `;
 
