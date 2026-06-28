@@ -1,5 +1,4 @@
 name: Maç Verilerini Güncelle
-
 on:
   schedule:
     # Her 5 dakikada bir çalışır (GitHub'ın izin verdiği minimum)
@@ -11,30 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
       - name: Repo'yu çek
         uses: actions/checkout@v4
-
       - name: football-data.org'dan maç verilerini al
         env:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: |
           curl -s \
             -H "X-Auth-Token: $FOOTBALL_API_KEY" \
-            "https://api.football-data.org/v4/competitions/WC/matches?stage=GROUP_STAGE" \
+            "https://api.football-data.org/v4/competitions/WC/matches" \
             | python3 -c "
           import json, sys
           from datetime import datetime, timezone
-
           data = json.load(sys.stdin)
           data['fetchedAt'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-
           with open('data.json', 'w', encoding='utf-8') as f:
               json.dump(data, f, ensure_ascii=False)
           print(f'Toplam maç: {len(data.get(\"matches\", []))}')
           "
-
       - name: data.json değiştiyse commit'le ve push'la
         run: |
           git config user.name  "github-actions[bot]"
