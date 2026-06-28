@@ -560,7 +560,7 @@ function matchCard(m,showDate=false){
   let drawBtn='';
   if(isKO){
     const isDraw=drawOverrides[m.id]==='draw';
-    drawBtn=`<button type="button" class="draw-btn${isDraw?' on':''}" onclick="toggleDraw(${m.id})">🤝${isDraw?' Brd':' Beraberlik'}</button>`;
+    drawBtn=`<button type="button" class="draw-btn${isDraw?' on':''}" onclick="toggleDraw(${m.id})">🤝${isDraw?' Beraberlik':' Beraberlik'}</button>`;
   }
 
   const homeCrestHtml=!homeTBD&&homeCrest
