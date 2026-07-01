@@ -334,12 +334,15 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────
 const TR_OFFSET = 3;
+const GH_TOKEN = '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';
+const GH_REPO  = 'bugra-kagan/dunya-kupasi-2026';
+const GH_FILE  = 'draws.json';
 
 // ─── STATE ───────────────────────────────────────────────────
 let allMatches   = [];
 let groupMatches = [];
 let koMatches    = [];
-let drawOverrides = JSON.parse(localStorage.getItem('wc2026_draws') || '{}');
+let drawOverrides = {}; // GitHub'dan yüklenir
 let isKOPhase    = false;  // grup bitmeden false, bittikten sonra true
 let activeTab    = 'today';
 let activeKOTab  = 'today';
@@ -397,6 +400,7 @@ function fmtDate(s){const[,m,d]=s.split('-');const M=['','Oca','Şub','Mar','Nis
 // ─── FETCH ───────────────────────────────────────────────────
 async function fetchMatches(){
   try{
+    // Maç verileri
     const r=await fetch(`data.json?t=${Date.now()}`);
     if(!r.ok){showError(`data.json yüklenemedi (${r.status})`);return false;}
     const data=await r.json();
@@ -406,6 +410,11 @@ async function fetchMatches(){
     if(data.fetchedAt){
       lastUpdate=new Date(data.fetchedAt).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})+' (GH)';
     }
+    // Beraberlik overrides
+    try{
+      const dr=await fetch(`draws.json?t=${Date.now()}`);
+      if(dr.ok) drawOverrides=await dr.json();
+    }catch(e){ /* draws.json henüz yok, sorun değil */ }
     return true;
   }catch(e){showError('Bağlantı hatası: '+e.message);return false;}
 }
@@ -560,7 +569,7 @@ function matchCard(m,showDate=false){
   let drawBtn='';
   if(isKO){
     const isDraw=drawOverrides[m.id]==='draw';
-    drawBtn=`<button type="button" class="draw-btn${isDraw?' on':''}" onclick="toggleDraw(${m.id})">🤝${isDraw?' Beraberlik':' Beraberlik'}</button>`;
+    drawBtn=`<button type="button" class="draw-btn${isDraw?' on':''}" onclick="toggleDraw(${m.id})">🤝${isDraw?' Brd':' Brd?'}</button>`;
   }
 
   const homeCrestHtml=!homeTBD&&homeCrest
@@ -599,14 +608,34 @@ function matchCard(m,showDate=false){
 }
 
 // ─── TOGGLE BERABERLİK ────────────────────────────────────────
-function toggleDraw(id){
+async function toggleDraw(id){
+  // Önce UI'ı hemen güncelle
   if(drawOverrides[id]==='draw') delete drawOverrides[id];
   else drawOverrides[id]='draw';
-  localStorage.setItem('wc2026_draws',JSON.stringify(drawOverrides));
   computeScoreboard();
   const m=allMatches.find(x=>x.id===id);
   if(m){const el=document.getElementById('mc-'+id);if(el)el.outerHTML=matchCard(m,true);}
   flash();
+  // GitHub'a kaydet
+  try{
+    // Önce mevcut dosyanın SHA'sını al (güncelleme için gerekli)
+    let sha=null;
+    const check=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,{
+      headers:{'Authorization':`Bearer ${GH_TOKEN}`,'Accept':'application/vnd.github+json'}
+    });
+    if(check.ok){const d=await check.json();sha=d.sha;}
+    // Dosyayı güncelle
+    const body={
+      message:'chore: beraberlik güncellendi [skip ci]',
+      content:btoa(unescape(encodeURIComponent(JSON.stringify(drawOverrides)))),
+      ...(sha&&{sha})
+    };
+    await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,{
+      method:'PUT',
+      headers:{'Authorization':`Bearer ${GH_TOKEN}`,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+  }catch(e){console.warn('GitHub kayıt hatası:',e);}
 }
 
 // ─── GRUP PHASE VIEWS ─────────────────────────────────────────
