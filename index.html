@@ -10,9 +10,9 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bugra:#1a8c4e;--tamer:#c8202a;--gold:#e8a825;
-  --dark:#0d1117;--surface:#161b22;--card:#1c2230;
-  --border:rgba(255,255,255,0.08);--text:#e6edf3;--muted:#8b949e;
+--bugra:#1a8c4e;--tamer:#c8202a;--gold:#e8a825;
+--dark:#0d1117;--surface:#161b22;--card:#1c2230;
+--border:rgba(255,255,255,0.08);--text:#e6edf3;--muted:#8b949e;
 }
 body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;max-width:430px;margin:0 auto;min-height:100vh;}
 
@@ -181,129 +181,129 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 <body>
 
 <div class="header">
-  <div class="header-top">
-    <div class="logo">🏆 Dünya Kupası 2026 <span class="phase-tag phase-group" id="phase-tag">GRUPLAR</span></div>
-    <div class="live-badge" id="live-badge">● CANLI</div>
-  </div>
-  <div class="header-sub">Buğra 🟢 Ev &nbsp;|&nbsp; İnci 🟡 Beraberlik &nbsp;|&nbsp; Tamer 🔴 Deplasman</div>
+<div class="header-top">
+<div class="logo">🏆 Dünya Kupası 2026 <span class="phase-tag phase-group" id="phase-tag">GRUPLAR</span></div>
+<div class="live-badge" id="live-badge">● CANLI</div>
+</div>
+<div class="header-sub">Buğra 🟢 Ev &nbsp;|&nbsp; İnci 🟡 Beraberlik &nbsp;|&nbsp; Tamer 🔴 Deplasman</div>
 </div>
 
 <!-- GRUP AŞAMASI SKORBORD -->
 <div id="group-phase">
-  <div class="scoreboard">
-    <div class="sb-label" id="sb-label">Bira Kupası '26 — Grup Aşaması</div>
-    <div class="score-nums">
-      <div class="score-col">
-        <div class="score-num bs" id="sb-bugra">0</div>
-        <div class="score-lbl bs">Buğra 🏠</div>
-      </div>
-      <div class="score-divider">:</div>
-      <div class="score-col">
-        <div class="score-num is" id="sb-inci">0</div>
-        <div class="score-lbl is">İnci 🤝</div>
-      </div>
-      <div class="score-divider">:</div>
-      <div class="score-col">
-        <div class="score-num ts" id="sb-tamer">0</div>
-        <div class="score-lbl ts">Tamer ✈️</div>
-      </div>
-    </div>
-    <div class="sb-stats">
-      <div class="sb-stat"><div class="sb-stat-val" id="stat-played">0</div><div class="sb-stat-lbl">Oynanan</div></div>
-      <div class="sb-stat"><div class="sb-stat-val" id="stat-draws">0</div><div class="sb-stat-lbl">Berabere</div></div>
-      <div class="sb-stat"><div class="sb-stat-val" id="stat-remaining">72</div><div class="sb-stat-lbl">Kalan</div></div>
-      <div class="sb-stat"><div class="sb-stat-val" id="stat-total">72</div><div class="sb-stat-lbl">Toplam</div></div>
-    </div>
-  </div>
-  <div class="progress-section">
-    <div class="progress-label">
-      <span>Grup Aşaması İlerlemesi</span>
-      <span id="progress-pct">0%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-  </div>
+<div class="scoreboard">
+<div class="sb-label" id="sb-label">Bira Kupası '26 — Grup Aşaması</div>
+<div class="score-nums">
+<div class="score-col">
+<div class="score-num bs" id="sb-bugra">0</div>
+<div class="score-lbl bs">Buğra 🏠</div>
+</div>
+<div class="score-divider">:</div>
+<div class="score-col">
+<div class="score-num is" id="sb-inci">0</div>
+<div class="score-lbl is">İnci 🤝</div>
+</div>
+<div class="score-divider">:</div>
+<div class="score-col">
+<div class="score-num ts" id="sb-tamer">0</div>
+<div class="score-lbl ts">Tamer ✈️</div>
+</div>
+</div>
+<div class="sb-stats">
+<div class="sb-stat"><div class="sb-stat-val" id="stat-played">0</div><div class="sb-stat-lbl">Oynanan</div></div>
+<div class="sb-stat"><div class="sb-stat-val" id="stat-draws">0</div><div class="sb-stat-lbl">Berabere</div></div>
+<div class="sb-stat"><div class="sb-stat-val" id="stat-remaining">72</div><div class="sb-stat-lbl">Kalan</div></div>
+<div class="sb-stat"><div class="sb-stat-val" id="stat-total">72</div><div class="sb-stat-lbl">Toplam</div></div>
+</div>
+</div>
+<div class="progress-section">
+<div class="progress-label">
+<span>Grup Aşaması İlerlemesi</span>
+<span id="progress-pct">0%</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+</div>
 </div>
 
 <!-- ELEMEAŞAMASı (başlangıçta gizli) -->
 <div id="ko-phase" style="display:none">
-  <!-- Küçük grup arşivi -->
-  <div class="archive-bar" style="margin-top:14px;">
-    <div class="archive-toggle" onclick="toggleArchive()">
-      <div class="archive-left">
-        <div class="archive-label">📦 Grup Aşaması Arşivi</div>
-        <div class="archive-scores">
-          <span class="as-b" id="arch-b">—</span>
-          <span class="as-sep">:</span>
-          <span class="as-i" id="arch-i">—</span>
-          <span class="as-sep">:</span>
-          <span class="as-t" id="arch-t">—</span>
-        </div>
-      </div>
-      <div class="archive-chev" id="arch-chev">▼</div>
-    </div>
-    <div class="archive-body" id="arch-body">
-      <div class="arch-row"><span>Toplam Maç</span><span id="arch-total">72</span></div>
-      <div class="arch-row"><span>Buğra Kazandı</span><span id="arch-bugra">—</span></div>
-      <div class="arch-row"><span>İnci (Berabere)</span><span id="arch-inci">—</span></div>
-      <div class="arch-row"><span>Tamer Kazandı</span><span id="arch-tamer">—</span></div>
-    </div>
-  </div>
+<!-- Küçük grup arşivi -->
+<div class="archive-bar" style="margin-top:14px;">
+<div class="archive-toggle" onclick="toggleArchive()">
+<div class="archive-left">
+<div class="archive-label">📦 Grup Aşaması Arşivi</div>
+<div class="archive-scores">
+<span class="as-b" id="arch-b">—</span>
+<span class="as-sep">:</span>
+<span class="as-i" id="arch-i">—</span>
+<span class="as-sep">:</span>
+<span class="as-t" id="arch-t">—</span>
+</div>
+</div>
+<div class="archive-chev" id="arch-chev">▼</div>
+</div>
+<div class="archive-body" id="arch-body">
+<div class="arch-row"><span>Toplam Maç</span><span id="arch-total">72</span></div>
+<div class="arch-row"><span>Buğra Kazandı</span><span id="arch-bugra">—</span></div>
+<div class="arch-row"><span>İnci (Berabere)</span><span id="arch-inci">—</span></div>
+<div class="arch-row"><span>Tamer Kazandı</span><span id="arch-tamer">—</span></div>
+</div>
+</div>
 
-  <!-- Eleme skorbord -->
-  <div class="scoreboard" style="margin-top:12px;">
-    <div class="sb-label">Bira Kupası '26 — Eleme Aşaması</div>
-    <div class="score-nums">
-      <div class="score-col">
-        <div class="score-num bs" id="ko-bugra">0</div>
-        <div class="score-lbl bs">Buğra 🏠</div>
-      </div>
-      <div class="score-divider">:</div>
-      <div class="score-col">
-        <div class="score-num is" id="ko-inci">0</div>
-        <div class="score-lbl is">İnci 🤝</div>
-      </div>
-      <div class="score-divider">:</div>
-      <div class="score-col">
-        <div class="score-num ts" id="ko-tamer">0</div>
-        <div class="score-lbl ts">Tamer ✈️</div>
-      </div>
-    </div>
-    <div class="sb-stats">
-      <div class="sb-stat"><div class="sb-stat-val" id="ko-played">0</div><div class="sb-stat-lbl">Oynanan</div></div>
-      <div class="sb-stat"><div class="sb-stat-val" id="ko-draws">0</div><div class="sb-stat-lbl">Berabere</div></div>
-      <div class="sb-stat"><div class="sb-stat-val" id="ko-remaining">—</div><div class="sb-stat-lbl">Kalan</div></div>
-      <div class="sb-stat"><div class="sb-stat-val" id="ko-total">—</div><div class="sb-stat-lbl">Toplam</div></div>
-    </div>
-  </div>
+<!-- Eleme skorbord -->
+<div class="scoreboard" style="margin-top:12px;">
+<div class="sb-label">Bira Kupası '26 — Eleme Aşaması</div>
+<div class="score-nums">
+<div class="score-col">
+<div class="score-num bs" id="ko-bugra">0</div>
+<div class="score-lbl bs">Buğra 🏠</div>
+</div>
+<div class="score-divider">:</div>
+<div class="score-col">
+<div class="score-num is" id="ko-inci">0</div>
+<div class="score-lbl is">İnci 🤝</div>
+</div>
+<div class="score-divider">:</div>
+<div class="score-col">
+<div class="score-num ts" id="ko-tamer">0</div>
+<div class="score-lbl ts">Tamer ✈️</div>
+</div>
+</div>
+<div class="sb-stats">
+<div class="sb-stat"><div class="sb-stat-val" id="ko-played">0</div><div class="sb-stat-lbl">Oynanan</div></div>
+<div class="sb-stat"><div class="sb-stat-val" id="ko-draws">0</div><div class="sb-stat-lbl">Berabere</div></div>
+<div class="sb-stat"><div class="sb-stat-val" id="ko-remaining">—</div><div class="sb-stat-lbl">Kalan</div></div>
+<div class="sb-stat"><div class="sb-stat-val" id="ko-total">—</div><div class="sb-stat-lbl">Toplam</div></div>
+</div>
+</div>
 
-  <!-- Eleme progress -->
-  <div class="progress-section">
-    <div class="progress-label">
-      <span>Eleme Aşaması İlerlemesi</span>
-      <span id="ko-progress-pct">0%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="ko-progress-fill" style="width:0%"></div></div>
-  </div>
+<!-- Eleme progress -->
+<div class="progress-section">
+<div class="progress-label">
+<span>Eleme Aşaması İlerlemesi</span>
+<span id="ko-progress-pct">0%</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="ko-progress-fill" style="width:0%"></div></div>
+</div>
 </div>
 
 <!-- TABS — grup aşaması -->
 <div class="tabs" id="group-tabs">
-  <div class="tab active" onclick="switchTab('today')">Bugün</div>
-  <div class="tab" onclick="switchTab('tomorrow')">Yarın</div>
-  <div class="tab" onclick="switchTab('all')">Tümü</div>
-  <div class="tab" onclick="switchTab('results')">Sonuçlar</div>
+<div class="tab active" onclick="switchTab('today')">Bugün</div>
+<div class="tab" onclick="switchTab('tomorrow')">Yarın</div>
+<div class="tab" onclick="switchTab('all')">Tümü</div>
+<div class="tab" onclick="switchTab('results')">Sonuçlar</div>
 </div>
 
 <!-- TABS — eleme aşaması -->
 <div class="tabs" id="ko-tabs" style="display:none">
-  <div class="tab active" onclick="switchKOTab('today')">Bugün</div>
-  <div class="tab" onclick="switchKOTab('bracket')">Eleme</div>
-  <div class="tab" onclick="switchKOTab('results')">Sonuçlar</div>
-  <div class="tab" onclick="switchKOTab('group')">Gruplar</div>
+<div class="tab active" onclick="switchKOTab('today')">Bugün</div>
+<div class="tab" onclick="switchKOTab('bracket')">Eleme</div>
+<div class="tab" onclick="switchKOTab('results')">Sonuçlar</div>
+<div class="tab" onclick="switchKOTab('group')">Gruplar</div>
 </div>
 
 <div class="ozet-bar">
-  <button type="button" class="ozet-btn" onclick="showOzet()">📊 Günün Özetini Oluştur</button>
+<button type="button" class="ozet-btn" onclick="showOzet()">📊 Günün Özetini Oluştur</button>
 </div>
 
 <!-- GRUP PHASE VIEWS -->
@@ -323,26 +323,23 @@ body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;f
 
 <!-- ÖZET MODAL -->
 <div class="ozet-modal" id="ozet-modal" style="display:none">
-  <div class="ozet-overlay" onclick="closeOzet()"></div>
-  <div class="ozet-card" id="ozet-card">
-    <div class="ozet-close" onclick="closeOzet()">✕</div>
-    <div id="ozet-content"></div>
-    <button type="button" class="ozet-screenshot-btn" onclick="screenshotOzet()">📸 Ekran Görüntüsü Al</button>
-  </div>
+<div class="ozet-overlay" onclick="closeOzet()"></div>
+<div class="ozet-card" id="ozet-card">
+<div class="ozet-close" onclick="closeOzet()">✕</div>
+<div id="ozet-content"></div>
+<button type="button" class="ozet-screenshot-btn" onclick="screenshotOzet()">📸 Ekran Görüntüsü Al</button>
+</div>
 </div>
 
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────
 const TR_OFFSET = 3;
-const GH_TOKEN = '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';
-const GH_REPO  = 'bugra-kagan/dunya-kupasi-2026';
-const GH_FILE  = 'draws.json';
 
 // ─── STATE ───────────────────────────────────────────────────
 let allMatches   = [];
 let groupMatches = [];
 let koMatches    = [];
-let drawOverrides = {}; // GitHub'dan yüklenir
+let drawOverrides = JSON.parse(localStorage.getItem('wc2026_draws') || '{}');
 let isKOPhase    = false;  // grup bitmeden false, bittikten sonra true
 let activeTab    = 'today';
 let activeKOTab  = 'today';
@@ -352,40 +349,40 @@ let lastUpdate   = null;
 
 // ─── MAPS ────────────────────────────────────────────────────
 const STAGE_LABEL = {
-  'LAST_32':'Son 32','ROUND_OF_32':'Son 32',
-  'LAST_16':'Son 16','ROUND_OF_16':'Son 16',
-  'QUARTER_FINALS':'Çeyrek Final','SEMI_FINALS':'Yarı Final',
-  'THIRD_PLACE':'3. lük Maçı','FINAL':'Final',
+'LAST_32':'Son 32','ROUND_OF_32':'Son 32',
+'LAST_16':'Son 16','ROUND_OF_16':'Son 16',
+'QUARTER_FINALS':'Çeyrek Final','SEMI_FINALS':'Yarı Final',
+'THIRD_PLACE':'3. lük Maçı','FINAL':'Final',
 };
 const STAGE_ORDER = ['LAST_32','ROUND_OF_32','LAST_16','ROUND_OF_16','QUARTER_FINALS','SEMI_FINALS','THIRD_PLACE','FINAL'];
 
 const FLAG = {
-  'Mexico':'🇲🇽','South Africa':'🇿🇦','South Korea':'🇰🇷','Czechia':'🇨🇿',
-  'Canada':'🇨🇦','Bosnia and Herzegovina':'🇧🇦','Qatar':'🇶🇦','Switzerland':'🇨🇭',
-  'Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹','Scotland':'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-  'USA':'🇺🇸','United States':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺','Türkiye':'🇹🇷','Turkey':'🇹🇷',
-  'Germany':'🇩🇪','Curacao':'🇨🇼','Curaçao':'🇨🇼','Ivory Coast':'🇨🇮',"Côte d'Ivoire":'🇨🇮','Ecuador':'🇪🇨',
-  'Netherlands':'🇳🇱','Japan':'🇯🇵','Sweden':'🇸🇪','Tunisia':'🇹🇳',
-  'Belgium':'🇧🇪','Egypt':'🇪🇬','Iran':'🇮🇷','New Zealand':'🇳🇿',
-  'Spain':'🇪🇸','Cape Verde':'🇨🇻','Saudi Arabia':'🇸🇦','Uruguay':'🇺🇾',
-  'France':'🇫🇷','Senegal':'🇸🇳','Iraq':'🇮🇶','Norway':'🇳🇴',
-  'Argentina':'🇦🇷','Algeria':'🇩🇿','Austria':'🇦🇹','Jordan':'🇯🇴',
-  'Portugal':'🇵🇹','DR Congo':'🇨🇩','Uzbekistan':'🇺🇿','Colombia':'🇨🇴',
-  'England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦',
+'Mexico':'🇲🇽','South Africa':'🇿🇦','South Korea':'🇰🇷','Czechia':'🇨🇿',
+'Canada':'🇨🇦','Bosnia and Herzegovina':'🇧🇦','Qatar':'🇶🇦','Switzerland':'🇨🇭',
+'Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹','Scotland':'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+'USA':'🇺🇸','United States':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺','Türkiye':'🇹🇷','Turkey':'🇹🇷',
+'Germany':'🇩🇪','Curacao':'🇨🇼','Curaçao':'🇨🇼','Ivory Coast':'🇨🇮',"Côte d'Ivoire":'🇨🇮','Ecuador':'🇪🇨',
+'Netherlands':'🇳🇱','Japan':'🇯🇵','Sweden':'🇸🇪','Tunisia':'🇹🇳',
+'Belgium':'🇧🇪','Egypt':'🇪🇬','Iran':'🇮🇷','New Zealand':'🇳🇿',
+'Spain':'🇪🇸','Cape Verde':'🇨🇻','Saudi Arabia':'🇸🇦','Uruguay':'🇺🇾',
+'France':'🇫🇷','Senegal':'🇸🇳','Iraq':'🇮🇶','Norway':'🇳🇴',
+'Argentina':'🇦🇷','Algeria':'🇩🇿','Austria':'🇦🇹','Jordan':'🇯🇴',
+'Portugal':'🇵🇹','DR Congo':'🇨🇩','Uzbekistan':'🇺🇿','Colombia':'🇨🇴',
+'England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦',
 };
 const TR_NAME = {
-  'Mexico':'Meksika','South Africa':'Güney Afrika','South Korea':'Güney Kore','Czechia':'Çekya',
-  'Canada':'Kanada','Bosnia and Herzegovina':'Bosna Hersek','Qatar':'Katar','Switzerland':'İsviçre',
-  'Brazil':'Brezilya','Morocco':'Fas','Haiti':'Haiti','Scotland':'İskoçya',
-  'USA':'ABD','United States':'ABD','Paraguay':'Paraguay','Australia':'Avustralya','Türkiye':'Türkiye','Turkey':'Türkiye',
-  'Germany':'Almanya','Curacao':'Kürasao','Curaçao':'Kürasao','Ivory Coast':'Fildişi Sahili',"Côte d'Ivoire":'Fildişi Sahili','Ecuador':'Ekvador',
-  'Netherlands':'Hollanda','Japan':'Japonya','Sweden':'İsveç','Tunisia':'Tunus',
-  'Belgium':'Belçika','Egypt':'Mısır','Iran':'İran','New Zealand':'Yeni Zelanda',
-  'Spain':'İspanya','Cape Verde':'Yeşil Burun','Saudi Arabia':'Suudi Arabistan','Uruguay':'Uruguay',
-  'France':'Fransa','Senegal':'Senegal','Iraq':'Irak','Norway':'Norveç',
-  'Argentina':'Arjantin','Algeria':'Cezayir','Austria':'Avusturya','Jordan':'Ürdün',
-  'Portugal':'Portekiz','DR Congo':'DR Kongo','Uzbekistan':'Özbekistan','Colombia':'Kolombiya',
-  'England':'İngiltere','Croatia':'Hırvatistan','Ghana':'Gana','Panama':'Panama',
+'Mexico':'Meksika','South Africa':'Güney Afrika','South Korea':'Güney Kore','Czechia':'Çekya',
+'Canada':'Kanada','Bosnia and Herzegovina':'Bosna Hersek','Qatar':'Katar','Switzerland':'İsviçre',
+'Brazil':'Brezilya','Morocco':'Fas','Haiti':'Haiti','Scotland':'İskoçya',
+'USA':'ABD','United States':'ABD','Paraguay':'Paraguay','Australia':'Avustralya','Türkiye':'Türkiye','Turkey':'Türkiye',
+'Germany':'Almanya','Curacao':'Kürasao','Curaçao':'Kürasao','Ivory Coast':'Fildişi Sahili',"Côte d'Ivoire":'Fildişi Sahili','Ecuador':'Ekvador',
+'Netherlands':'Hollanda','Japan':'Japonya','Sweden':'İsveç','Tunisia':'Tunus',
+'Belgium':'Belçika','Egypt':'Mısır','Iran':'İran','New Zealand':'Yeni Zelanda',
+'Spain':'İspanya','Cape Verde':'Yeşil Burun','Saudi Arabia':'Suudi Arabistan','Uruguay':'Uruguay',
+'France':'Fransa','Senegal':'Senegal','Iraq':'Irak','Norway':'Norveç',
+'Argentina':'Arjantin','Algeria':'Cezayir','Austria':'Avusturya','Jordan':'Ürdün',
+'Portugal':'Portekiz','DR Congo':'DR Kongo','Uzbekistan':'Özbekistan','Colombia':'Kolombiya',
+'England':'İngiltere','Croatia':'Hırvatistan','Ghana':'Gana','Panama':'Panama',
 };
 function flag(n){ return FLAG[n]||'🏳️'; }
 function trName(n){ return TR_NAME[n]||n||'?'; }
@@ -399,512 +396,487 @@ function fmtDate(s){const[,m,d]=s.split('-');const M=['','Oca','Şub','Mar','Nis
 
 // ─── FETCH ───────────────────────────────────────────────────
 async function fetchMatches(){
-  try{
-    // Maç verileri
-    const r=await fetch(`data.json?t=${Date.now()}`);
-    if(!r.ok){showError(`data.json yüklenemedi (${r.status})`);return false;}
-    const data=await r.json();
-    allMatches=(data.matches||[]).sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
-    groupMatches=allMatches.filter(m=>m.stage==='GROUP_STAGE');
-    koMatches=allMatches.filter(m=>m.stage&&m.stage!=='GROUP_STAGE');
-    if(data.fetchedAt){
-      lastUpdate=new Date(data.fetchedAt).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})+' (GH)';
-    }
-    // Beraberlik overrides
-    try{
-      const dr=await fetch(`draws.json?t=${Date.now()}`);
-      if(dr.ok) drawOverrides=await dr.json();
-    }catch(e){ /* draws.json henüz yok, sorun değil */ }
-    return true;
-  }catch(e){showError('Bağlantı hatası: '+e.message);return false;}
+try{
+const r=await fetch(`data.json?t=${Date.now()}`);
+if(!r.ok){showError(`data.json yüklenemedi (${r.status})`);return false;}
+const data=await r.json();
+allMatches=(data.matches||[]).sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
+groupMatches=allMatches.filter(m=>m.stage==='GROUP_STAGE');
+koMatches=allMatches.filter(m=>m.stage&&m.stage!=='GROUP_STAGE');
+if(data.fetchedAt){
+lastUpdate=new Date(data.fetchedAt).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})+' (GH)';
+}
+return true;
+}catch(e){showError('Bağlantı hatası: '+e.message);return false;}
 }
 
 function showError(msg){
-  const html=`<div class="error-banner"><div class="error-banner-title">⚠️ Hata</div><div class="error-banner-sub">${msg}</div></div>`;
-  document.getElementById('today-view').innerHTML=html;
+const html=`<div class="error-banner"><div class="error-banner-title">⚠️ Hata</div><div class="error-banner-sub">${msg}</div></div>`;
+document.getElementById('today-view').innerHTML=html;
 }
 
 // ─── PHASE DETECTION ─────────────────────────────────────────
 function detectPhase(){
-  if(!groupMatches.length) return false;
-  const total=groupMatches.length;
-  const finished=groupMatches.filter(m=>m.status==='FINISHED').length;
-  return finished>=total; // tüm grup maçları bitti mi
+if(!groupMatches.length) return false;
+const total=groupMatches.length;
+const finished=groupMatches.filter(m=>m.status==='FINISHED').length;
+return finished>=total; // tüm grup maçları bitti mi
 }
 
 function applyPhase(){
-  const ko = detectPhase();
-  if(ko===isKOPhase) return; // değişme olmadı
-  isKOPhase = ko;
-  document.getElementById('group-phase').style.display = ko ? 'none' : 'block';
-  document.getElementById('ko-phase').style.display = ko ? 'block' : 'none';
-  document.getElementById('group-tabs').style.display = ko ? 'none' : 'flex';
-  document.getElementById('ko-tabs').style.display = ko ? 'flex' : 'none';
-  const tag = document.getElementById('phase-tag');
-  tag.textContent = ko ? 'ELEME' : 'GRUPLAR';
-  tag.className = 'phase-tag ' + (ko ? 'phase-ko' : 'phase-group');
-  // Aktif view'ları temizle
-  if(ko){
-    ['today-view','tomorrow-view','all-view','results-view'].forEach(id=>{document.getElementById(id).style.display='none';});
-    document.getElementById('ko-today-view').style.display='block';
-    activeKOTab='today';
-  }
+const ko = detectPhase();
+if(ko===isKOPhase) return; // değişme olmadı
+isKOPhase = ko;
+document.getElementById('group-phase').style.display = ko ? 'none' : 'block';
+document.getElementById('ko-phase').style.display = ko ? 'block' : 'none';
+document.getElementById('group-tabs').style.display = ko ? 'none' : 'flex';
+document.getElementById('ko-tabs').style.display = ko ? 'flex' : 'none';
+const tag = document.getElementById('phase-tag');
+tag.textContent = ko ? 'ELEME' : 'GRUPLAR';
+tag.className = 'phase-tag ' + (ko ? 'phase-ko' : 'phase-group');
+// Aktif view'ları temizle
+if(ko){
+['today-view','tomorrow-view','all-view','results-view'].forEach(id=>{document.getElementById(id).style.display='none';});
+document.getElementById('ko-today-view').style.display='block';
+activeKOTab='today';
+}
 }
 
 // ─── RESULT LOGIC ─────────────────────────────────────────────
 function getResult(m){
-  // KO maçı: önce drawOverride bak
-  if(m.stage&&m.stage!=='GROUP_STAGE'){
-    if(drawOverrides[m.id]==='draw') return 'draw';
-  }
-  const s=m.score;
-  if(s&&s.fullTime&&s.fullTime.home!==null){
-    const h=s.fullTime.home,a=s.fullTime.away;
-    if(h>a) return 'bugra'; if(a>h) return 'tamer'; return 'draw';
-  }
-  return null;
+// KO maçı: önce drawOverride bak
+if(m.stage&&m.stage!=='GROUP_STAGE'){
+if(drawOverrides[m.id]==='draw') return 'draw';
+}
+const s=m.score;
+if(s&&s.fullTime&&s.fullTime.home!==null){
+const h=s.fullTime.home,a=s.fullTime.away;
+if(h>a) return 'bugra'; if(a>h) return 'tamer'; return 'draw';
+}
+return null;
 }
 
 function getScore(m){
-  const s=m.score;
-  if(s&&s.fullTime&&s.fullTime.home!==null) return{home:s.fullTime.home,away:s.fullTime.away};
-  if(s&&s.halfTime&&s.halfTime.home!==null&&m.status==='IN_PLAY') return{home:s.halfTime.home,away:s.halfTime.away};
-  return null;
+const s=m.score;
+if(s&&s.fullTime&&s.fullTime.home!==null) return{home:s.fullTime.home,away:s.fullTime.away};
+if(s&&s.halfTime&&s.halfTime.home!==null&&m.status==='IN_PLAY') return{home:s.halfTime.home,away:s.halfTime.away};
+return null;
 }
 
 // ─── SCOREBOARD ───────────────────────────────────────────────
 function computeScoreboard(){
-  // Grup
-  let gB=0,gI=0,gT=0,gP=0;
-  groupMatches.forEach(m=>{
-    const r=getResult(m);
-    if(r){gP++;if(r==='bugra')gB++;else if(r==='tamer')gT++;else gI++;}
-  });
-  const gTotal=groupMatches.length||72;
-  document.getElementById('sb-bugra').textContent=gB;
-  document.getElementById('sb-inci').textContent=gI;
-  document.getElementById('sb-tamer').textContent=gT;
-  document.getElementById('stat-played').textContent=gP;
-  document.getElementById('stat-draws').textContent=gI;
-  document.getElementById('stat-remaining').textContent=gTotal-gP;
-  document.getElementById('stat-total').textContent=gTotal;
-  const gPct=gTotal?Math.round((gP/gTotal)*100):0;
-  document.getElementById('progress-pct').textContent=gPct+'%';
-  document.getElementById('progress-fill').style.width=gPct+'%';
+// Grup
+let gB=0,gI=0,gT=0,gP=0;
+groupMatches.forEach(m=>{
+const r=getResult(m);
+if(r){gP++;if(r==='bugra')gB++;else if(r==='tamer')gT++;else gI++;}
+});
+const gTotal=groupMatches.length||72;
+document.getElementById('sb-bugra').textContent=gB;
+document.getElementById('sb-inci').textContent=gI;
+document.getElementById('sb-tamer').textContent=gT;
+document.getElementById('stat-played').textContent=gP;
+document.getElementById('stat-draws').textContent=gI;
+document.getElementById('stat-remaining').textContent=gTotal-gP;
+document.getElementById('stat-total').textContent=gTotal;
+const gPct=gTotal?Math.round((gP/gTotal)*100):0;
+document.getElementById('progress-pct').textContent=gPct+'%';
+document.getElementById('progress-fill').style.width=gPct+'%';
 
-  // Grup arşiv (eleme aşamasında)
-  document.getElementById('arch-b').textContent=gB;
-  document.getElementById('arch-i').textContent=gI;
-  document.getElementById('arch-t').textContent=gT;
-  document.getElementById('arch-total').textContent=gTotal;
-  document.getElementById('arch-bugra').textContent=gB;
-  document.getElementById('arch-inci').textContent=gI;
-  document.getElementById('arch-tamer').textContent=gT;
+// Grup arşiv (eleme aşamasında)
+document.getElementById('arch-b').textContent=gB;
+document.getElementById('arch-i').textContent=gI;
+document.getElementById('arch-t').textContent=gT;
+document.getElementById('arch-total').textContent=gTotal;
+document.getElementById('arch-bugra').textContent=gB;
+document.getElementById('arch-inci').textContent=gI;
+document.getElementById('arch-tamer').textContent=gT;
 
-  // KO
-  let kB=0,kI=0,kT=0,kP=0;
-  koMatches.forEach(m=>{
-    const r=getResult(m);
-    if(r){kP++;if(r==='bugra')kB++;else if(r==='tamer')kT++;else kI++;}
-  });
-  const kTotal=koMatches.length||'—';
-  document.getElementById('ko-bugra').textContent=kB;
-  document.getElementById('ko-inci').textContent=kI;
-  document.getElementById('ko-tamer').textContent=kT;
-  document.getElementById('ko-played').textContent=kP;
-  document.getElementById('ko-draws').textContent=kI;
-  document.getElementById('ko-total').textContent=kTotal;
-  document.getElementById('ko-remaining').textContent=koMatches.length?koMatches.length-kP:'—';
-  const kPct=koMatches.length?Math.round((kP/koMatches.length)*100):0;
-  document.getElementById('ko-progress-pct').textContent=kPct+'%';
-  document.getElementById('ko-progress-fill').style.width=kPct+'%';
+// KO
+let kB=0,kI=0,kT=0,kP=0;
+koMatches.forEach(m=>{
+const r=getResult(m);
+if(r){kP++;if(r==='bugra')kB++;else if(r==='tamer')kT++;else kI++;}
+});
+const kTotal=koMatches.length||'—';
+document.getElementById('ko-bugra').textContent=kB;
+document.getElementById('ko-inci').textContent=kI;
+document.getElementById('ko-tamer').textContent=kT;
+document.getElementById('ko-played').textContent=kP;
+document.getElementById('ko-draws').textContent=kI;
+document.getElementById('ko-total').textContent=kTotal;
+document.getElementById('ko-remaining').textContent=koMatches.length?koMatches.length-kP:'—';
+const kPct=koMatches.length?Math.round((kP/koMatches.length)*100):0;
+document.getElementById('ko-progress-pct').textContent=kPct+'%';
+document.getElementById('ko-progress-fill').style.width=kPct+'%';
 
-  // Canlı badge
-  const hasLive=allMatches.some(m=>m.status==='IN_PLAY'||m.status==='PAUSED');
-  document.getElementById('live-badge').style.display=hasLive?'block':'none';
+// Canlı badge
+const hasLive=allMatches.some(m=>m.status==='IN_PLAY'||m.status==='PAUSED');
+document.getElementById('live-badge').style.display=hasLive?'block':'none';
 }
 
 // ─── MATCH CARD ───────────────────────────────────────────────
 function matchCard(m,showDate=false){
-  const date=trDate(m.utcDate);
-  const time=trTime(m.utcDate);
-  const score=getScore(m);
-  const result=getResult(m);
-  const isLive=m.status==='IN_PLAY'||m.status==='PAUSED';
-  const isFinished=m.status==='FINISHED';
-  const isKO=m.stage&&m.stage!=='GROUP_STAGE';
-  const homeName=m.homeTeam?.name||m.homeTeam?.shortName||null;
-  const awayName=m.awayTeam?.name||m.awayTeam?.shortName||null;
-  const homeTBD=!homeName||homeName==='TBD';
-  const awayTBD=!awayName||awayName==='TBD';
-  const homeCrest=m.homeTeam?.crest;
-  const awayCrest=m.awayTeam?.crest;
-  const roundLabel=isKO?(STAGE_LABEL[m.stage]||m.stage||''):(m.group?m.group.replace('GROUP_','Grup '):'');
+const date=trDate(m.utcDate);
+const time=trTime(m.utcDate);
+const score=getScore(m);
+const result=getResult(m);
+const isLive=m.status==='IN_PLAY'||m.status==='PAUSED';
+const isFinished=m.status==='FINISHED';
+const isKO=m.stage&&m.stage!=='GROUP_STAGE';
+const homeName=m.homeTeam?.name||m.homeTeam?.shortName||null;
+const awayName=m.awayTeam?.name||m.awayTeam?.shortName||null;
+const homeTBD=!homeName||homeName==='TBD';
+const awayTBD=!awayName||awayName==='TBD';
+const homeCrest=m.homeTeam?.crest;
+const awayCrest=m.awayTeam?.crest;
+const roundLabel=isKO?(STAGE_LABEL[m.stage]||m.stage||''):(m.group?m.group.replace('GROUP_','Grup '):'');
 
-  let cardClass='';
-  if(result==='bugra')cardClass='bugra-won';
-  else if(result==='tamer')cardClass='tamer-won';
-  else if(result==='draw')cardClass='draw-match';
-  if(isLive)cardClass+=' live-match';
+let cardClass='';
+if(result==='bugra')cardClass='bugra-won';
+else if(result==='tamer')cardClass='tamer-won';
+else if(result==='draw')cardClass='draw-match';
+if(isLive)cardClass+=' live-match';
 
-  let statusHtml='';
-  if(isLive)statusHtml=`<span class="match-status status-live">● ${m.minute||'...'}'</span>`;
-  else if(isFinished)statusHtml=`<span class="match-status status-finished">Bitti</span>`;
-  else statusHtml=`<span class="match-status status-upcoming">${showDate?fmtDate(date):time}</span>`;
+let statusHtml='';
+if(isLive)statusHtml=`<span class="match-status status-live">● ${m.minute||'...'}'</span>`;
+else if(isFinished)statusHtml=`<span class="match-status status-finished">Bitti</span>`;
+else statusHtml=`<span class="match-status status-upcoming">${showDate?fmtDate(date):time}</span>`;
 
-  const timeLabel=showDate?`${fmtDate(date)} ${time}`:time;
+const timeLabel=showDate?`${fmtDate(date)} ${time}`:time;
 
-  let scoreHtml='';
-  if(score){
-    scoreHtml=`<div class="live-score${isLive?' in-play':''}">${score.home} - ${score.away}</div>`;
-    if(isLive&&m.minute)scoreHtml+=`<div class="match-minute">● ${m.minute}'</div>`;
-  }else{scoreHtml=`<div class="vs-text">vs</div>`;}
+let scoreHtml='';
+if(score){
+scoreHtml=`<div class="live-score${isLive?' in-play':''}">${score.home} - ${score.away}</div>`;
+if(isLive&&m.minute)scoreHtml+=`<div class="match-minute">● ${m.minute}'</div>`;
+}else{scoreHtml=`<div class="vs-text">vs</div>`;}
 
-  let resultBadge='';
-  if(result==='bugra')resultBadge='<span class="bet-result r-bugra">Buğra ✓</span>';
-  else if(result==='tamer')resultBadge='<span class="bet-result r-tamer">Tamer ✓</span>';
-  else if(result==='draw')resultBadge='<span class="bet-result r-draw">İnci 🤝</span>';
+let resultBadge='';
+if(result==='bugra')resultBadge='<span class="bet-result r-bugra">Buğra ✓</span>';
+else if(result==='tamer')resultBadge='<span class="bet-result r-tamer">Tamer ✓</span>';
+else if(result==='draw')resultBadge='<span class="bet-result r-draw">İnci 🤝</span>';
 
-  // Beraberlik butonu — sadece KO, sadece skor varsa
-  let drawBtn='';
-  if(isKO){
-    const isDraw=drawOverrides[m.id]==='draw';
+// Beraberlik butonu — sadece KO, sadece skor varsa
+let drawBtn='';
+if(isKO){
+const isDraw=drawOverrides[m.id]==='draw';
+    drawBtn=`<button type="button" class="draw-btn${isDraw?' on':''}" onclick="toggleDraw(${m.id})">🤝${isDraw?' Brd':' Beraberlik'}</button>`;
     drawBtn=`<button type="button" class="draw-btn${isDraw?' on':''}" onclick="toggleDraw(${m.id})">🤝${isDraw?' Beraberlik':' Beraberlik'}</button>`;
-  }
+}
 
-  const homeCrestHtml=!homeTBD&&homeCrest
-    ?`<img class="team-crest" src="${homeCrest}" alt="" onerror="this.style.display='none'">`
-    :`<div class="team-crest-fallback">${homeTBD?'❓':flag(homeName)}</div>`;
-  const awayCrestHtml=!awayTBD&&awayCrest
-    ?`<img class="team-crest" src="${awayCrest}" alt="" onerror="this.style.display='none'">`
-    :`<div class="team-crest-fallback">${awayTBD?'❓':flag(awayName)}</div>`;
+const homeCrestHtml=!homeTBD&&homeCrest
+?`<img class="team-crest" src="${homeCrest}" alt="" onerror="this.style.display='none'">`
+:`<div class="team-crest-fallback">${homeTBD?'❓':flag(homeName)}</div>`;
+const awayCrestHtml=!awayTBD&&awayCrest
+?`<img class="team-crest" src="${awayCrest}" alt="" onerror="this.style.display='none'">`
+:`<div class="team-crest-fallback">${awayTBD?'❓':flag(awayName)}</div>`;
 
-  return`
-  <div class="match-card ${cardClass}" id="mc-${m.id}">
-    <div class="match-header">
-      <span class="match-group">${roundLabel}</span>
-      <span class="match-time">${timeLabel}</span>
-      ${statusHtml}
-    </div>
-    <div class="match-body">
-      <div class="match-team home">
-        ${homeCrestHtml}
-        <div class="team-name">${homeTBD?(m.homeTeam?.shortName||'Belirlenecek'):trName(homeName)}</div>
-        <div class="team-bet ${homeTBD?'bet-tbd':'bet-bugra'}">${homeTBD?'Belirlenecek':'Buğra 🏠'}</div>
-      </div>
-      <div class="match-score-center">${scoreHtml}</div>
-      <div class="match-team away">
-        ${awayCrestHtml}
-        <div class="team-name">${awayTBD?(m.awayTeam?.shortName||'Belirlenecek'):trName(awayName)}</div>
-        <div class="team-bet ${awayTBD?'bet-tbd':'bet-tamer'}">${awayTBD?'Belirlenecek':'Tamer ✈️'}</div>
-      </div>
-    </div>
-    <div class="match-footer">
-      <span class="match-venue">📍 ${m.venue||''}</span>
-      ${drawBtn}
-      ${resultBadge}
-    </div>
-  </div>`;
+return`
+ <div class="match-card ${cardClass}" id="mc-${m.id}">
+   <div class="match-header">
+     <span class="match-group">${roundLabel}</span>
+     <span class="match-time">${timeLabel}</span>
+     ${statusHtml}
+   </div>
+   <div class="match-body">
+     <div class="match-team home">
+       ${homeCrestHtml}
+       <div class="team-name">${homeTBD?(m.homeTeam?.shortName||'Belirlenecek'):trName(homeName)}</div>
+       <div class="team-bet ${homeTBD?'bet-tbd':'bet-bugra'}">${homeTBD?'Belirlenecek':'Buğra 🏠'}</div>
+     </div>
+     <div class="match-score-center">${scoreHtml}</div>
+     <div class="match-team away">
+       ${awayCrestHtml}
+       <div class="team-name">${awayTBD?(m.awayTeam?.shortName||'Belirlenecek'):trName(awayName)}</div>
+       <div class="team-bet ${awayTBD?'bet-tbd':'bet-tamer'}">${awayTBD?'Belirlenecek':'Tamer ✈️'}</div>
+     </div>
+   </div>
+   <div class="match-footer">
+     <span class="match-venue">📍 ${m.venue||''}</span>
+     ${drawBtn}
+     ${resultBadge}
+   </div>
+ </div>`;
 }
 
 // ─── TOGGLE BERABERLİK ────────────────────────────────────────
-async function toggleDraw(id){
-  // Önce UI'ı hemen güncelle
-  if(drawOverrides[id]==='draw') delete drawOverrides[id];
-  else drawOverrides[id]='draw';
-  computeScoreboard();
-  const m=allMatches.find(x=>x.id===id);
-  if(m){const el=document.getElementById('mc-'+id);if(el)el.outerHTML=matchCard(m,true);}
-  flash();
-  // GitHub'a kaydet
-  try{
-    // Önce mevcut dosyanın SHA'sını al (güncelleme için gerekli)
-    let sha=null;
-    const check=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,{
-      headers:{'Authorization':`Bearer ${GH_TOKEN}`,'Accept':'application/vnd.github+json'}
-    });
-    if(check.ok){const d=await check.json();sha=d.sha;}
-    // Dosyayı güncelle
-    const body={
-      message:'chore: beraberlik güncellendi [skip ci]',
-      content:btoa(unescape(encodeURIComponent(JSON.stringify(drawOverrides)))),
-      ...(sha&&{sha})
-    };
-    await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,{
-      method:'PUT',
-      headers:{'Authorization':`Bearer ${GH_TOKEN}`,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
-      body:JSON.stringify(body)
-    });
-  }catch(e){console.warn('GitHub kayıt hatası:',e);}
+function toggleDraw(id){
+if(drawOverrides[id]==='draw') delete drawOverrides[id];
+else drawOverrides[id]='draw';
+localStorage.setItem('wc2026_draws',JSON.stringify(drawOverrides));
+computeScoreboard();
+const m=allMatches.find(x=>x.id===id);
+if(m){const el=document.getElementById('mc-'+id);if(el)el.outerHTML=matchCard(m,true);}
+flash();
 }
 
 // ─── GRUP PHASE VIEWS ─────────────────────────────────────────
 function renderToday(){
-  const today=todayTR();
-  const c=document.getElementById('today-view');
-  const liveMs=allMatches.filter(m=>m.status==='IN_PLAY'||m.status==='PAUSED');
-  const todayMs=allMatches.filter(m=>trDate(m.utcDate)===today);
-  const ids=new Set(todayMs.map(m=>m.id));
-  const combined=[...todayMs,...liveMs.filter(m=>!ids.has(m.id))];
-  combined.sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
+const today=todayTR();
+const c=document.getElementById('today-view');
+const liveMs=allMatches.filter(m=>m.status==='IN_PLAY'||m.status==='PAUSED');
+const todayMs=allMatches.filter(m=>trDate(m.utcDate)===today);
+const ids=new Set(todayMs.map(m=>m.id));
+const combined=[...todayMs,...liveMs.filter(m=>!ids.has(m.id))];
+combined.sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
 
-  if(combined.length>0){
-    c.innerHTML=combined.map(m=>matchCard(m,false)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
-    return;
-  }
-  const upcoming=groupMatches.filter(m=>trDate(m.utcDate)>today).slice(0,6);
-  const past=groupMatches.filter(m=>trDate(m.utcDate)<today&&m.status==='FINISHED').slice(-2);
-  let html=`<div class="info-banner"><div class="info-banner-icon">📅</div><div><div class="info-banner-title">Bugün maç yok</div><div class="info-banner-sub">Yaklaşan maçlar ve son sonuçlar aşağıda.</div></div></div>`;
-  if(past.length){html+=`<div class="section-title">Son Sonuçlar</div>`;html+=past.map(m=>matchCard(m,true)).join('');}
-  if(upcoming.length){
-    let lastD=null;
-    upcoming.forEach(m=>{
-      const d=trDate(m.utcDate);
-      if(d!==lastD){html+=`<div class="section-title">📅 ${fmtDate(d)}</div>`;lastD=d;}
-      html+=matchCard(m,false);
-    });
-  }
-  html+=`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
-  c.innerHTML=html;
+if(combined.length>0){
+c.innerHTML=combined.map(m=>matchCard(m,false)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+return;
+}
+const upcoming=groupMatches.filter(m=>trDate(m.utcDate)>today).slice(0,6);
+const past=groupMatches.filter(m=>trDate(m.utcDate)<today&&m.status==='FINISHED').slice(-2);
+let html=`<div class="info-banner"><div class="info-banner-icon">📅</div><div><div class="info-banner-title">Bugün maç yok</div><div class="info-banner-sub">Yaklaşan maçlar ve son sonuçlar aşağıda.</div></div></div>`;
+if(past.length){html+=`<div class="section-title">Son Sonuçlar</div>`;html+=past.map(m=>matchCard(m,true)).join('');}
+if(upcoming.length){
+let lastD=null;
+upcoming.forEach(m=>{
+const d=trDate(m.utcDate);
+if(d!==lastD){html+=`<div class="section-title">📅 ${fmtDate(d)}</div>`;lastD=d;}
+html+=matchCard(m,false);
+});
+}
+html+=`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+c.innerHTML=html;
 }
 
 function renderTomorrow(){
-  const today=todayTR();
-  const futureDates=[...new Set(groupMatches.filter(m=>trDate(m.utcDate)>today).map(m=>trDate(m.utcDate)))].sort();
-  const tomorrow=futureDates[0]||null;
-  const c=document.getElementById('tomorrow-view');
-  if(!tomorrow){c.innerHTML='<div class="info-banner" style="margin:16px"><div class="info-banner-icon">🗓️</div><div><div class="info-banner-title">Yaklaşan maç bulunamadı</div></div></div>';return;}
-  const ms=groupMatches.filter(m=>trDate(m.utcDate)===tomorrow);
-  const label=new Date(ms[0].utcDate).toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long',timeZone:'Europe/Istanbul'});
-  c.innerHTML=`<div class="day-label">${label}</div>`+ms.map(m=>matchCard(m,false)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+const today=todayTR();
+const futureDates=[...new Set(groupMatches.filter(m=>trDate(m.utcDate)>today).map(m=>trDate(m.utcDate)))].sort();
+const tomorrow=futureDates[0]||null;
+const c=document.getElementById('tomorrow-view');
+if(!tomorrow){c.innerHTML='<div class="info-banner" style="margin:16px"><div class="info-banner-icon">🗓️</div><div><div class="info-banner-title">Yaklaşan maç bulunamadı</div></div></div>';return;}
+const ms=groupMatches.filter(m=>trDate(m.utcDate)===tomorrow);
+const label=new Date(ms[0].utcDate).toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long',timeZone:'Europe/Istanbul'});
+c.innerHTML=`<div class="day-label">${label}</div>`+ms.map(m=>matchCard(m,false)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
 }
 
 function renderAll(){
-  const c=document.getElementById('all-view');
-  const groups=[...new Set(groupMatches.map(m=>m.group))].filter(Boolean).sort();
-  let filterHtml=`<div class="group-filter"><div class="gf-btn${activeGroup==='all'?' active':''}" onclick="filterGroup('all',this)">Tümü</div>`;
-  groups.forEach(g=>{filterHtml+=`<div class="gf-btn${activeGroup===g?' active':''}" onclick="filterGroup('${g}',this)">Grup ${g.replace('GROUP_','')}</div>`;});
-  filterHtml+='</div>';
-  const filtered=activeGroup==='all'?groupMatches:groupMatches.filter(m=>m.group===activeGroup);
-  let cards='';let lastG=null;
-  filtered.forEach(m=>{
-    if(m.group!==lastG){cards+=`<div class="section-title">Grup ${(m.group||'').replace('GROUP_','')}</div>`;lastG=m.group;}
-    cards+=matchCard(m,true);
-  });
-  c.innerHTML=filterHtml+cards+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+const c=document.getElementById('all-view');
+const groups=[...new Set(groupMatches.map(m=>m.group))].filter(Boolean).sort();
+let filterHtml=`<div class="group-filter"><div class="gf-btn${activeGroup==='all'?' active':''}" onclick="filterGroup('all',this)">Tümü</div>`;
+groups.forEach(g=>{filterHtml+=`<div class="gf-btn${activeGroup===g?' active':''}" onclick="filterGroup('${g}',this)">Grup ${g.replace('GROUP_','')}</div>`;});
+filterHtml+='</div>';
+const filtered=activeGroup==='all'?groupMatches:groupMatches.filter(m=>m.group===activeGroup);
+let cards='';let lastG=null;
+filtered.forEach(m=>{
+if(m.group!==lastG){cards+=`<div class="section-title">Grup ${(m.group||'').replace('GROUP_','')}</div>`;lastG=m.group;}
+cards+=matchCard(m,true);
+});
+c.innerHTML=filterHtml+cards+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
 }
 
 function renderResults(){
-  const c=document.getElementById('results-view');
-  const done=groupMatches.filter(m=>getResult(m));
-  if(!done.length){c.innerHTML=`<div class="info-banner"><div class="info-banner-icon">🏁</div><div><div class="info-banner-title">Henüz sonuç yok</div></div></div>`;return;}
-  c.innerHTML=[...done].sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate)).map(m=>matchCard(m,true)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+const c=document.getElementById('results-view');
+const done=groupMatches.filter(m=>getResult(m));
+if(!done.length){c.innerHTML=`<div class="info-banner"><div class="info-banner-icon">🏁</div><div><div class="info-banner-title">Henüz sonuç yok</div></div></div>`;return;}
+c.innerHTML=[...done].sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate)).map(m=>matchCard(m,true)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
 }
 
 // ─── KO PHASE VIEWS ──────────────────────────────────────────
 function renderKOToday(){
-  const today=todayTR();
-  const c=document.getElementById('ko-today-view');
-  const liveMs=koMatches.filter(m=>m.status==='IN_PLAY'||m.status==='PAUSED');
-  const todayMs=allMatches.filter(m=>trDate(m.utcDate)===today);
-  const ids=new Set(todayMs.map(m=>m.id));
-  const combined=[...todayMs,...liveMs.filter(m=>!ids.has(m.id))];
-  combined.sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
+const today=todayTR();
+const c=document.getElementById('ko-today-view');
+const liveMs=koMatches.filter(m=>m.status==='IN_PLAY'||m.status==='PAUSED');
+const todayMs=allMatches.filter(m=>trDate(m.utcDate)===today);
+const ids=new Set(todayMs.map(m=>m.id));
+const combined=[...todayMs,...liveMs.filter(m=>!ids.has(m.id))];
+combined.sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
 
-  if(combined.length>0){
-    c.innerHTML=combined.map(m=>matchCard(m,false)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
-    return;
-  }
-  const upcoming=koMatches.filter(m=>trDate(m.utcDate)>=today&&m.status!=='FINISHED').slice(0,4);
-  const past=koMatches.filter(m=>m.status==='FINISHED').slice(-2);
-  let html=`<div class="info-banner"><div class="info-banner-icon">📅</div><div><div class="info-banner-title">Bugün maç yok</div><div class="info-banner-sub">Yaklaşan ve son eleme maçları aşağıda.</div></div></div>`;
-  if(past.length){html+=`<div class="section-title">Son Sonuçlar</div>`;html+=past.map(m=>matchCard(m,true)).join('');}
-  if(upcoming.length){
-    let lastD=null;
-    upcoming.forEach(m=>{
-      const d=trDate(m.utcDate);
-      if(d!==lastD){html+=`<div class="section-title">📅 ${fmtDate(d)}</div>`;lastD=d;}
-      html+=matchCard(m,false);
-    });
-  }
-  if(!past.length&&!upcoming.length)html+=`<div class="info-banner" style="margin-top:8px"><div class="info-banner-icon">⏳</div><div><div class="info-banner-title">Eleme maçları yakında</div><div class="info-banner-sub">Grup aşaması tamamlandıkça bracket dolmaya başlayacak.</div></div></div>`;
-  html+=`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
-  c.innerHTML=html;
+if(combined.length>0){
+c.innerHTML=combined.map(m=>matchCard(m,false)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+return;
+}
+const upcoming=koMatches.filter(m=>trDate(m.utcDate)>=today&&m.status!=='FINISHED').slice(0,4);
+const past=koMatches.filter(m=>m.status==='FINISHED').slice(-2);
+let html=`<div class="info-banner"><div class="info-banner-icon">📅</div><div><div class="info-banner-title">Bugün maç yok</div><div class="info-banner-sub">Yaklaşan ve son eleme maçları aşağıda.</div></div></div>`;
+if(past.length){html+=`<div class="section-title">Son Sonuçlar</div>`;html+=past.map(m=>matchCard(m,true)).join('');}
+if(upcoming.length){
+let lastD=null;
+upcoming.forEach(m=>{
+const d=trDate(m.utcDate);
+if(d!==lastD){html+=`<div class="section-title">📅 ${fmtDate(d)}</div>`;lastD=d;}
+html+=matchCard(m,false);
+});
+}
+if(!past.length&&!upcoming.length)html+=`<div class="info-banner" style="margin-top:8px"><div class="info-banner-icon">⏳</div><div><div class="info-banner-title">Eleme maçları yakında</div><div class="info-banner-sub">Grup aşaması tamamlandıkça bracket dolmaya başlayacak.</div></div></div>`;
+html+=`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+c.innerHTML=html;
 }
 
 function renderKOBracket(){
-  const c=document.getElementById('ko-bracket-view');
-  if(!koMatches.length){
-    c.innerHTML=`<div class="info-banner" style="margin:16px"><div class="info-banner-icon">⏳</div><div><div class="info-banner-title">Eleme bracket'i henüz oluşmadı</div><div class="info-banner-sub">Son 32 maçları yakında burada görünecek.</div></div></div>`;
-    return;
-  }
-  const byStage={};
-  koMatches.forEach(m=>{const s=m.stage||'OTHER';if(!byStage[s])byStage[s]=[];byStage[s].push(m);});
-  let html='';
-  STAGE_ORDER.forEach(stage=>{
-    const ms=byStage[stage];if(!ms)return;
-    html+=`<div class="section-title">${STAGE_LABEL[stage]||stage}</div>`;
-    ms.forEach(m=>{html+=matchCard(m,true);});
-  });
-  html+=`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
-  c.innerHTML=html;
+const c=document.getElementById('ko-bracket-view');
+if(!koMatches.length){
+c.innerHTML=`<div class="info-banner" style="margin:16px"><div class="info-banner-icon">⏳</div><div><div class="info-banner-title">Eleme bracket'i henüz oluşmadı</div><div class="info-banner-sub">Son 32 maçları yakında burada görünecek.</div></div></div>`;
+return;
+}
+const byStage={};
+koMatches.forEach(m=>{const s=m.stage||'OTHER';if(!byStage[s])byStage[s]=[];byStage[s].push(m);});
+let html='';
+STAGE_ORDER.forEach(stage=>{
+const ms=byStage[stage];if(!ms)return;
+html+=`<div class="section-title">${STAGE_LABEL[stage]||stage}</div>`;
+ms.forEach(m=>{html+=matchCard(m,true);});
+});
+html+=`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+c.innerHTML=html;
 }
 
 function renderKOResults(){
-  const c=document.getElementById('ko-results-view');
-  const done=koMatches.filter(m=>getResult(m));
-  if(!done.length){c.innerHTML=`<div class="info-banner"><div class="info-banner-icon">🏁</div><div><div class="info-banner-title">Henüz eleme sonucu yok</div></div></div>`;return;}
-  c.innerHTML=[...done].sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate)).map(m=>matchCard(m,true)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+const c=document.getElementById('ko-results-view');
+const done=koMatches.filter(m=>getResult(m));
+if(!done.length){c.innerHTML=`<div class="info-banner"><div class="info-banner-icon">🏁</div><div><div class="info-banner-title">Henüz eleme sonucu yok</div></div></div>`;return;}
+c.innerHTML=[...done].sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate)).map(m=>matchCard(m,true)).join('')+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
 }
 
 function renderKOGroup(){
-  const c=document.getElementById('ko-group-view');
-  const groups=[...new Set(groupMatches.map(m=>m.group))].filter(Boolean).sort();
-  let filterHtml=`<div class="group-filter"><div class="gf-btn${activeGroup==='all'?' active':''}" onclick="filterGroup('all',this)">Tümü</div>`;
-  groups.forEach(g=>{filterHtml+=`<div class="gf-btn${activeGroup===g?' active':''}" onclick="filterGroup('${g}',this)">Grup ${g.replace('GROUP_','')}</div>`;});
-  filterHtml+='</div>';
-  const filtered=activeGroup==='all'?groupMatches:groupMatches.filter(m=>m.group===activeGroup);
-  let cards='';let lastG=null;
-  filtered.forEach(m=>{
-    if(m.group!==lastG){cards+=`<div class="section-title">Grup ${(m.group||'').replace('GROUP_','')}</div>`;lastG=m.group;}
-    cards+=matchCard(m,true);
-  });
-  c.innerHTML=filterHtml+cards+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
+const c=document.getElementById('ko-group-view');
+const groups=[...new Set(groupMatches.map(m=>m.group))].filter(Boolean).sort();
+let filterHtml=`<div class="group-filter"><div class="gf-btn${activeGroup==='all'?' active':''}" onclick="filterGroup('all',this)">Tümü</div>`;
+groups.forEach(g=>{filterHtml+=`<div class="gf-btn${activeGroup===g?' active':''}" onclick="filterGroup('${g}',this)">Grup ${g.replace('GROUP_','')}</div>`;});
+filterHtml+='</div>';
+const filtered=activeGroup==='all'?groupMatches:groupMatches.filter(m=>m.group===activeGroup);
+let cards='';let lastG=null;
+filtered.forEach(m=>{
+if(m.group!==lastG){cards+=`<div class="section-title">Grup ${(m.group||'').replace('GROUP_','')}</div>`;lastG=m.group;}
+cards+=matchCard(m,true);
+});
+c.innerHTML=filterHtml+cards+`<div class="last-update">Son güncelleme: ${lastUpdate||'—'}</div>`;
 }
 
 // ─── TAB SWITCHING ────────────────────────────────────────────
 function switchTab(tab){
-  activeTab=tab;
-  document.querySelectorAll('#group-tabs .tab').forEach((t,i)=>{
-    t.classList.toggle('active',['today','tomorrow','all','results'][i]===tab);
-  });
-  ['today','tomorrow','all','results'].forEach(v=>{document.getElementById(v+'-view').style.display=v===tab?'block':'none';});
-  if(tab==='today')renderToday();
-  else if(tab==='tomorrow')renderTomorrow();
-  else if(tab==='all')renderAll();
-  else if(tab==='results')renderResults();
+activeTab=tab;
+document.querySelectorAll('#group-tabs .tab').forEach((t,i)=>{
+t.classList.toggle('active',['today','tomorrow','all','results'][i]===tab);
+});
+['today','tomorrow','all','results'].forEach(v=>{document.getElementById(v+'-view').style.display=v===tab?'block':'none';});
+if(tab==='today')renderToday();
+else if(tab==='tomorrow')renderTomorrow();
+else if(tab==='all')renderAll();
+else if(tab==='results')renderResults();
 }
 
 function switchKOTab(tab){
-  activeKOTab=tab;
-  document.querySelectorAll('#ko-tabs .tab').forEach((t,i)=>{
-    t.classList.toggle('active',['today','bracket','results','group'][i]===tab);
-  });
-  ['ko-today','ko-bracket','ko-results','ko-group'].forEach(v=>{document.getElementById(v+'-view').style.display=v.replace('ko-','')===(tab==='today'?'today':tab==='bracket'?'bracket':tab==='results'?'results':'group')?'block':'none';});
-  // Daha temiz:
-  ['ko-today-view','ko-bracket-view','ko-results-view','ko-group-view'].forEach(id=>document.getElementById(id).style.display='none');
-  document.getElementById('ko-'+tab+'-view').style.display='block';
-  if(tab==='today')renderKOToday();
-  else if(tab==='bracket')renderKOBracket();
-  else if(tab==='results')renderKOResults();
-  else if(tab==='group')renderKOGroup();
+activeKOTab=tab;
+document.querySelectorAll('#ko-tabs .tab').forEach((t,i)=>{
+t.classList.toggle('active',['today','bracket','results','group'][i]===tab);
+});
+['ko-today','ko-bracket','ko-results','ko-group'].forEach(v=>{document.getElementById(v+'-view').style.display=v.replace('ko-','')===(tab==='today'?'today':tab==='bracket'?'bracket':tab==='results'?'results':'group')?'block':'none';});
+// Daha temiz:
+['ko-today-view','ko-bracket-view','ko-results-view','ko-group-view'].forEach(id=>document.getElementById(id).style.display='none');
+document.getElementById('ko-'+tab+'-view').style.display='block';
+if(tab==='today')renderKOToday();
+else if(tab==='bracket')renderKOBracket();
+else if(tab==='results')renderKOResults();
+else if(tab==='group')renderKOGroup();
 }
 
 function filterGroup(g){
-  activeGroup=g;
-  if(isKOPhase)renderKOGroup(); else renderAll();
+activeGroup=g;
+if(isKOPhase)renderKOGroup(); else renderAll();
 }
 
 function toggleArchive(){
-  archOpen=!archOpen;
-  document.getElementById('arch-body').classList.toggle('open',archOpen);
-  document.getElementById('arch-chev').classList.toggle('open',archOpen);
+archOpen=!archOpen;
+document.getElementById('arch-body').classList.toggle('open',archOpen);
+document.getElementById('arch-chev').classList.toggle('open',archOpen);
 }
 
 function flash(){
-  const f=document.getElementById('saved-flash');
-  f.classList.add('show');setTimeout(()=>f.classList.remove('show'),1800);
+const f=document.getElementById('saved-flash');
+f.classList.add('show');setTimeout(()=>f.classList.remove('show'),1800);
 }
 
 // ─── ÖZET ────────────────────────────────────────────────────
 function showOzet(){
-  const today=todayTR();
-  const yd=new Date();yd.setDate(yd.getDate()-1);
-  const yesterday=yd.toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'});
-  const recent=allMatches.filter(m=>{
-    const d=trDate(m.utcDate);
-    return(d===today||d===yesterday)&&m.status==='FINISHED';
-  });
-  let dB=0,dI=0,dT=0;
-  recent.forEach(m=>{const r=getResult(m);if(r==='bugra')dB++;else if(r==='tamer')dT++;else if(r==='draw')dI++;});
-  let tB=0,tI=0,tT=0;
-  allMatches.filter(m=>m.status==='FINISHED'||getScore(m)).forEach(m=>{
-    const r=getResult(m);if(r==='bugra')tB++;else if(r==='tamer')tT++;else if(r==='draw')tI++;
-  });
-  const maxD=Math.max(dB,dI,dT);
-  let winner='—';
-  if(maxD>0){
-    const ws=[];
-    if(dB===maxD)ws.push('🟢 Buğra');
-    if(dI===maxD)ws.push('🟡 İnci');
-    if(dT===maxD)ws.push('🔴 Tamer');
-    winner=ws.join(' & ');
-  }
-  const dateLabel=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',weekday:'long'});
-  const rows=recent.map(m=>{
-    const hn=trName(m.homeTeam?.name||m.homeTeam?.shortName||'?');
-    const an=trName(m.awayTeam?.name||m.awayTeam?.shortName||'?');
-    const hf=flag(m.homeTeam?.name||'');
-    const af=flag(m.awayTeam?.name||'');
-    const sc=m.score?.fullTime;
-    const scoreStr=sc&&sc.home!=null?`${sc.home}-${sc.away}`:'—';
-    const r=getResult(m);
-    const bc=r==='bugra'?'b':r==='tamer'?'t':r==='draw'?'i':'p';
-    const bt=r==='bugra'?'Buğra':r==='tamer'?'Tamer':r==='draw'?'İnci':'—';
-    return`<div class="ozet-match">
-      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${hf} ${hn}</span>
-      <span class="ozet-match-score">${scoreStr}</span>
-      <span style="flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${an} ${af}</span>
-      <span class="ozet-match-badge ${bc}">${bt}</span>
-    </div>`;
-  }).join('');
+const today=todayTR();
+const yd=new Date();yd.setDate(yd.getDate()-1);
+const yesterday=yd.toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'});
+const recent=allMatches.filter(m=>{
+const d=trDate(m.utcDate);
+return(d===today||d===yesterday)&&m.status==='FINISHED';
+});
+let dB=0,dI=0,dT=0;
+recent.forEach(m=>{const r=getResult(m);if(r==='bugra')dB++;else if(r==='tamer')dT++;else if(r==='draw')dI++;});
+let tB=0,tI=0,tT=0;
+allMatches.filter(m=>m.status==='FINISHED'||getScore(m)).forEach(m=>{
+const r=getResult(m);if(r==='bugra')tB++;else if(r==='tamer')tT++;else if(r==='draw')tI++;
+});
+const maxD=Math.max(dB,dI,dT);
+let winner='—';
+if(maxD>0){
+const ws=[];
+if(dB===maxD)ws.push('🟢 Buğra');
+if(dI===maxD)ws.push('🟡 İnci');
+if(dT===maxD)ws.push('🔴 Tamer');
+winner=ws.join(' & ');
+}
+const dateLabel=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',weekday:'long'});
+const rows=recent.map(m=>{
+const hn=trName(m.homeTeam?.name||m.homeTeam?.shortName||'?');
+const an=trName(m.awayTeam?.name||m.awayTeam?.shortName||'?');
+const hf=flag(m.homeTeam?.name||'');
+const af=flag(m.awayTeam?.name||'');
+const sc=m.score?.fullTime;
+const scoreStr=sc&&sc.home!=null?`${sc.home}-${sc.away}`:'—';
+const r=getResult(m);
+const bc=r==='bugra'?'b':r==='tamer'?'t':r==='draw'?'i':'p';
+const bt=r==='bugra'?'Buğra':r==='tamer'?'Tamer':r==='draw'?'İnci':'—';
+return`<div class="ozet-match">
+     <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${hf} ${hn}</span>
+     <span class="ozet-match-score">${scoreStr}</span>
+     <span style="flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${an} ${af}</span>
+     <span class="ozet-match-badge ${bc}">${bt}</span>
+   </div>`;
+}).join('');
 
-  document.getElementById('ozet-content').innerHTML=`
-    <div class="ozet-header">
-      <div class="ozet-title">🏆 GÜNÜN ÖZETİ</div>
-      <div class="ozet-date">${dateLabel}</div>
-    </div>
-    <div class="ozet-scoreboard">
-      <div class="ozet-player ob"><div class="ozet-player-name">BUĞRA</div><div class="ozet-player-score">${tB}</div><div class="ozet-player-role">🏠 toplam</div></div>
-      <div class="ozet-player oi"><div class="ozet-player-name">İNCİ</div><div class="ozet-player-score">${tI}</div><div class="ozet-player-role">🤝 toplam</div></div>
-      <div class="ozet-player ot"><div class="ozet-player-name">TAMER</div><div class="ozet-player-score">${tT}</div><div class="ozet-player-role">✈️ toplam</div></div>
-    </div>
-    <div class="ozet-winner">Günün Galibi: ${winner}<br><small style="font-weight:400;color:var(--muted)">(${dB} Buğra · ${dI} İnci · ${dT} Tamer)</small></div>
-    <div class="ozet-matches-title">Maçlar (${recent.length})</div>
-    ${rows||'<div style="color:var(--muted);font-size:12px;text-align:center;padding:10px">Bugün/dün biten maç yok</div>'}
-  `;
-  document.getElementById('ozet-modal').style.display='flex';
+document.getElementById('ozet-content').innerHTML=`
+   <div class="ozet-header">
+     <div class="ozet-title">🏆 GÜNÜN ÖZETİ</div>
+     <div class="ozet-date">${dateLabel}</div>
+   </div>
+   <div class="ozet-scoreboard">
+     <div class="ozet-player ob"><div class="ozet-player-name">BUĞRA</div><div class="ozet-player-score">${tB}</div><div class="ozet-player-role">🏠 toplam</div></div>
+     <div class="ozet-player oi"><div class="ozet-player-name">İNCİ</div><div class="ozet-player-score">${tI}</div><div class="ozet-player-role">🤝 toplam</div></div>
+     <div class="ozet-player ot"><div class="ozet-player-name">TAMER</div><div class="ozet-player-score">${tT}</div><div class="ozet-player-role">✈️ toplam</div></div>
+   </div>
+   <div class="ozet-winner">Günün Galibi: ${winner}<br><small style="font-weight:400;color:var(--muted)">(${dB} Buğra · ${dI} İnci · ${dT} Tamer)</small></div>
+   <div class="ozet-matches-title">Maçlar (${recent.length})</div>
+   ${rows||'<div style="color:var(--muted);font-size:12px;text-align:center;padding:10px">Bugün/dün biten maç yok</div>'}
+ `;
+document.getElementById('ozet-modal').style.display='flex';
 }
 function closeOzet(){document.getElementById('ozet-modal').style.display='none';}
 function screenshotOzet(){
-  const card=document.getElementById('ozet-card');
-  const btns=card.querySelectorAll('button,.ozet-close');
-  btns.forEach(b=>b.style.display='none');
-  html2canvas(card,{backgroundColor:'#1a1a2e',scale:2,useCORS:true}).then(canvas=>{
-    btns.forEach(b=>b.style.display='');
-    const a=document.createElement('a');
-    a.download='wc2026-ozet-'+new Date().toLocaleDateString('tr-TR').replace(/\./g,'-')+'.png';
-    a.href=canvas.toDataURL('image/png');a.click();
-  }).catch(()=>{btns.forEach(b=>b.style.display='');});
+const card=document.getElementById('ozet-card');
+const btns=card.querySelectorAll('button,.ozet-close');
+btns.forEach(b=>b.style.display='none');
+html2canvas(card,{backgroundColor:'#1a1a2e',scale:2,useCORS:true}).then(canvas=>{
+btns.forEach(b=>b.style.display='');
+const a=document.createElement('a');
+a.download='wc2026-ozet-'+new Date().toLocaleDateString('tr-TR').replace(/\./g,'-')+'.png';
+a.href=canvas.toDataURL('image/png');a.click();
+}).catch(()=>{btns.forEach(b=>b.style.display='');});
 }
 
 // ─── REFRESH ──────────────────────────────────────────────────
 async function refresh(){
-  const ok=await fetchMatches();
-  if(!ok)return;
-  applyPhase();
-  computeScoreboard();
-  if(!isKOPhase){
-    if(activeTab==='today')renderToday();
-    else if(activeTab==='tomorrow')renderTomorrow();
-    else if(activeTab==='all')renderAll();
-    else if(activeTab==='results')renderResults();
-  }else{
-    if(activeKOTab==='today')renderKOToday();
-    else if(activeKOTab==='bracket')renderKOBracket();
-    else if(activeKOTab==='results')renderKOResults();
-    else if(activeKOTab==='group')renderKOGroup();
-  }
+const ok=await fetchMatches();
+if(!ok)return;
+applyPhase();
+computeScoreboard();
+if(!isKOPhase){
+if(activeTab==='today')renderToday();
+else if(activeTab==='tomorrow')renderTomorrow();
+else if(activeTab==='all')renderAll();
+else if(activeTab==='results')renderResults();
+}else{
+if(activeKOTab==='today')renderKOToday();
+else if(activeKOTab==='bracket')renderKOBracket();
+else if(activeKOTab==='results')renderKOResults();
+else if(activeKOTab==='group')renderKOGroup();
+}
 }
 
 refresh();
